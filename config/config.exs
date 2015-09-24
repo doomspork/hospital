@@ -27,3 +27,15 @@ import_config "#{Mix.env}.exs"
 config :phoenix, :generators,
   migration: true,
   binary_id: false
+
+config :joken, config_module: Guardian.JWT
+
+config :guardian, Guardian,
+      issuer: "Hospital",
+      ttl: { 100_000, :days },
+      verify_issuer: true,
+      secret_key: "random secret key",
+      serializer: Hospital.UserSerializer,
+      permissions: %{
+         default: [:read, :write]
+       }
