@@ -14,53 +14,27 @@
 </head>
 
 <body>
-<div class="container" role="main">
-  <div class="row border-bottom white-bg">
-    <div>
-      <nav class="navbar navbar-static-top" role="navigation">
-        <div class="navbar-header">
-          <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-            <i class="fa fa-reorder"></i>
-          </button>
-          <a href="#" class="navbar-brand">
-            <img src="<%= static_path(@conn, "/images/medic.png") %>" width="50px" height="50px">
-            <p style="display: inline-block;">Medic</p>
-          </a>
-        </div>
-        <div class="navbar-collapse collapse" id="navbar">
-          <ul class="nav navbar-nav">
-          </ul>
-          <ul class="nav navbar-top-links navbar-right">
-            <%= if authenticated?(@conn) do %> 
-              <li class="dropdown">
-                <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-user"></i>
-                  User Name
-                  <span class="caret"></span>
-                </a>
-                <ul role="menu" class="dropdown-menu">
-                  <li>
-                    <a href=""><i class="fa fa-cog"></i>Account</a>
-                  </li>
-                  <li>
-                  <a href="">
-                    <i class="fa fa-sign-out"></i> Log out
-                  </a>
-                  </li>
-                </ul>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </nav>
-    </div>
-  </div>
 
-  <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-  <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+<div class="container">
+  <div class="header clearfix">
+    <nav>
+      <ul class="nav navbar-nav pull-right">
+        <%= if authenticated?(@conn) do %> 
+          <li class="active"><a href="/dashboard"><i class="fa fa-heartbeat fa-2x"></i></a></li>
+          <li><a href="/settings"><i class="fa fa-cog fa-2x"></i></a></li>
+          <li><a href="/logout"><i class="fa fa-sign-out fa-2x"></i></a></li>
+        <% end %>
+      </ul>
+    </nav>
+    <h3 class="text-muted"><img src="<%= static_path(@conn, "/images/medic.png") %>" width="50px" height="50px">
+      Medic</h3>
+  </div>
 
   <%= @inner %>
 
+  <footer class="footer">
+   <p>A product of <a href="https://utensils.io">utensils.io</a> &copy;  2015</p>
+  </footer>
 </div> <!-- /container -->
 <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
 </body>
