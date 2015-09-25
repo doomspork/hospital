@@ -2,23 +2,18 @@ defmodule Hospital.Report do
   use Hospital.Web, :model
 
   schema "reports" do
-    field :address, :string
-    field :type, :string
+    field :successful, :boolean, default: false
     field :results, :map
+
+    belongs_to :health_check, Hospital.HealthCheck
 
     timestamps
   end
 
-  @required_fields ~w(address type results)
-  @optional_fields ~w()
+  @required_fields ~w(successful)
+  @optional_fields ~w(results)
 
-  @doc """
-  Creates a changeset based on the `model` and `params`.
-
-  If no params are provided, an invalid changeset is returned
-  with no validation performed.
-  """
-  def changeset(model, params \\ :empty) do
+  def create_changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
   end

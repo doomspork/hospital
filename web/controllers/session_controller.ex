@@ -7,7 +7,8 @@ defmodule Hospital.SessionController do
 
   def new(conn, params) do
     changeset = User.login_changeset(%User{})
-    render(conn, Hospital.SessionView, "new.html", changeset: changeset)
+    conn
+    |> render("new.html", changeset: changeset, conn: conn)
   end
 
   def create(conn, params = %{}) do
@@ -20,7 +21,9 @@ defmodule Hospital.SessionController do
         |> Guardian.Plug.sign_in(user, :token, perms: %{ default: Guardian.Permissions.max })
         |> redirect(to: page_path(conn, :index))
       else
-        render(conn, "new.html", changeset: changeset)
+        conn
+        |> put_flash(:info, "Bad login.")
+        |> render("new.html", changeset: changeset)
       end
     else
       changeset = User.login_changeset(%User{}) |> Ecto.Changeset.add_error(:login, "not found")
