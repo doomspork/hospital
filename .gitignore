@@ -12,7 +12,7 @@ erl_crash.dump
 _build/
 deps/
 node_modules/
-priv/
+priv/static/
 
 
 ### OSX ###
