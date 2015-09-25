@@ -1,0 +1,24 @@
+<h2>Listing health checks</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for health_check <- @health_checks do %>
+    <tr>
+
+      <td class="text-right">
+        <%= link "Show", to: health_check_path(@conn, :show, health_check), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: health_check_path(@conn, :edit, health_check), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: health_check_path(@conn, :delete, health_check), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New health check", to: health_check_path(@conn, :new) %>

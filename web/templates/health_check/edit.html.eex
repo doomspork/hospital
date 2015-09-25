@@ -1,0 +1,6 @@
+<h2>Edit health check</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: health_check_path(@conn, :update, @health_check) %>
+
+<%= link "Back", to: health_check_path(@conn, :index) %>

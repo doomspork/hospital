@@ -1,0 +1,8 @@
+<h2>Show health check</h2>
+
+<ul>
+
+</ul>
+
+<%= link "Edit", to: health_check_path(@conn, :edit, @health_check) %>
+<%= link "Back", to: health_check_path(@conn, :index) %>

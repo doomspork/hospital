@@ -32,6 +32,8 @@ defmodule Hospital.Router do
     post "/signup", UserController, :create, as: :signup
 
     get "/", PageController, :index
+
+    resources "/health_checks", HealthCheckController
   end
 
    scope "/api", Hospital do
