@@ -10,7 +10,7 @@ defmodule Hospital.Report do
     timestamps
   end
 
-  @required_fields ~w(successful)
+  @required_fields ~w(successful health_check_id)
   @optional_fields ~w(results)
 
   def create_changeset(model, params \\ :empty) do

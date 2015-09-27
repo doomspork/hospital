@@ -11,7 +11,7 @@ defmodule Hospital.ReportController do
   end
 
   def create(conn, %{"report" => report_params}) do
-    changeset = Report.changeset(%Report{}, report_params)
+    changeset = Report.create_changeset(%Report{}, report_params)
 
     case Repo.insert(changeset) do
       {:ok, report} ->

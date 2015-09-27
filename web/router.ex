@@ -32,6 +32,8 @@ defmodule Hospital.Router do
     post "/signup", UserController, :create, as: :signup
 
     get "/", PageController, :index
+    get "/dashboard", HealthCheckController, :index
+    get "/settings", PageController, :settings, as: :settings
 
     resources "/health_checks", HealthCheckController
   end
@@ -40,6 +42,5 @@ defmodule Hospital.Router do
      pipe_through :api
 
      resources "/reports", ReportController, only: [:create]
-     resources "/hosts", HostController, except: [:new, :edit]
    end
 end

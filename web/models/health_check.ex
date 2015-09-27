@@ -18,9 +18,8 @@ defmodule Hospital.HealthCheck do
   def create_changeset(model), do: model |> cast(%{}, ~w(), ~w(name options regions target type))
   def create_changeset(model, params) do
     model
-    |> cast(params, ~w(name target type), ~w(regions options))
+    |> cast(params, ~w(name target type user_id), ~w(regions options))
     |> validate_inclusion(:type, @support_types)
-    |> assoc_constraint(:user)
     |> unique_constraint(:name_by_user)
   end
 end

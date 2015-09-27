@@ -16,7 +16,7 @@ defmodule Hospital.UserControllerTest do
 
   test "renders sign up form", %{conn: conn} do
     conn = get conn, signup_path(conn, :new)
-    assert html_response(conn, 200) =~ "Sign up"
+    assert html_response(conn, 200) =~ "Signup"
   end
 
   test "creates resource and redirects when data is valid", %{conn: conn} do

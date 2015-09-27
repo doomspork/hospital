@@ -3,16 +3,16 @@ defmodule Hospital.ReportTest do
 
   alias Hospital.Report
 
-  @valid_attrs %{address: "some content", results: %{}, type: "some content"}
+  @valid_attrs %{successful: true, health_check_id: 10, results: %{}}
   @invalid_attrs %{}
 
-  test "changeset with valid attributes" do
-    changeset = Report.changeset(%Report{}, @valid_attrs)
+  test "create changeset with valid attributes" do
+    changeset = Report.create_changeset(%Report{}, @valid_attrs)
     assert changeset.valid?
   end
 
-  test "changeset with invalid attributes" do
-    changeset = Report.changeset(%Report{}, @invalid_attrs)
+  test "create changeset with invalid attributes" do
+    changeset = Report.create_changeset(%Report{}, @invalid_attrs)
     refute changeset.valid?
   end
 end

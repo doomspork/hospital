@@ -5,10 +5,9 @@ defmodule Hospital.SessionController do
 
   plug :scrub_params, "user" when action in [:create]
 
-  def new(conn, params) do
+  def new(conn, _params) do
     changeset = User.login_changeset(%User{})
-    conn
-    |> render("new.html", changeset: changeset, conn: conn)
+    render(conn, Hospital.SessionView, "new.html", changeset: changeset, conn: conn)
   end
 
   def create(conn, params = %{}) do
@@ -34,7 +33,7 @@ defmodule Hospital.SessionController do
   def delete(conn, _params) do
     Guardian.Plug.sign_out(conn)
     |> put_flash(:info, "Logged out successfully.")
-    |> redirect(to: "/")
+    |> redirect(to: login_path(conn, :new))
   end
 
   def unauthenticated_api(conn, _params) do
@@ -52,4 +51,9 @@ defmodule Hospital.SessionController do
     |> json(%{ error: :forbidden })
   end
 
+  def forbidden(conn, _) do
+    conn
+    |> put_flash(:error, "Forbidden")
+    |> redirect(to: page_path(conn, :index))
+  end
 end

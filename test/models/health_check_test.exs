@@ -2,9 +2,8 @@ defmodule Hospital.HealthCheckTest do
   use Hospital.ModelCase
 
   alias Hospital.HealthCheck
-  alias Hospital.User
 
-  @create_attrs %{name: "", target: "", type: "ping", user: %User{}}
+  @create_attrs %{name: "", target: "", type: "ping", user_id: 1}
 
   test "create changeset with valid attributes" do
     changeset = HealthCheck.create_changeset(%HealthCheck{}, @create_attrs)

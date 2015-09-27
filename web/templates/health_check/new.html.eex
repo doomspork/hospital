@@ -1,4 +1,4 @@
-<h2>New health check</h2>
+<h2>New Health Check</h2>
 
 <%= render "form.html", changeset: @changeset,
                         action: health_check_path(@conn, :create) %>

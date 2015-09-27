@@ -22,13 +22,13 @@ defmodule Hospital.HealthCheckControllerTest do
   test "lists all entries on index", %{conn: conn, user: user} do
     conn = sign_in(conn, user)
     conn = get conn, health_check_path(conn, :index)
-    assert html_response(conn, 200) =~ "Listing health checks"
+    assert html_response(conn, 200) =~ "<a href=\"/health_checks/new\">"
   end
 
   test "renders form for new resources", %{conn: conn, user: user} do
     conn = sign_in(conn, user)
     conn = get conn, health_check_path(conn, :new)
-    assert html_response(conn, 200) =~ "New health check"
+    assert html_response(conn, 200) =~ "New Health Check"
   end
 
   test "creates resource and redirects when data is valid", %{conn: conn, user: user} do
@@ -42,20 +42,8 @@ defmodule Hospital.HealthCheckControllerTest do
     invalid_attrs = Map.delete(@create_attrs, :name)
     conn = sign_in(conn, user)
     conn = post conn, health_check_path(conn, :create), health_check: invalid_attrs
-    assert html_response(conn, 200) =~ "New health check"
+    assert html_response(conn, 200) =~ "Oops, something went wrong! Please check the errors below:"
   end
-
-  # test "shows chosen resource", %{conn: conn} do
-  #   health_check = Repo.insert! %HealthCheck{}
-  #   conn = get conn, health_check_path(conn, :show, health_check)
-  #   assert html_response(conn, 200) =~ "Show health check"
-  # end
-
-  # test "renders page not found when id is nonexistent", %{conn: conn} do
-  #   assert_raise Ecto.NoResultsError, fn ->
-  #     get conn, health_check_path(conn, :show, -1)
-  #   end
-  # end
 
   # test "renders form for editing chosen resource", %{conn: conn} do
   #   health_check = Repo.insert! %HealthCheck{}

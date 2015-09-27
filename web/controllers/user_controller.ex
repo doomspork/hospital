@@ -5,7 +5,7 @@ defmodule Hospital.UserController do
   alias Hospital.SessionController
 
   plug Guardian.Plug.EnsureAuthenticated, %{ on_failure: { SessionController, :new } } when not action in [:new, :create]
-  plug Guardian.Plug.EnsurePermissions, %{ on_failure: { __MODULE__, :forbidden }, default: [:read, :write] } when action in [:edit, :update]
+  plug Guardian.Plug.EnsurePermissions, %{ on_failure: { SessionController, :forbidden }, default: [:read, :write] } when action in [:edit, :update]
 
   plug :scrub_params, "user" when action in [:create, :update]
 
@@ -68,12 +68,6 @@ defmodule Hospital.UserController do
 
     conn
     |> put_flash(:info, "User deleted successfully.")
-    |> redirect(to: page_path(conn, :index))
-  end
-
-  def forbidden(conn, _) do
-    conn
-    |> put_flash(:error, "Forbidden")
     |> redirect(to: page_path(conn, :index))
   end
 end
