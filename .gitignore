@@ -15,6 +15,11 @@ node_modules/
 priv/static/
 config/prod.secret.exs
 
+### Bower ###
+bower_components
+.bower-cache
+.bower-registry
+.bower-tmp
 
 ### OSX ###
 .DS_Store

@@ -2,8 +2,8 @@
   "repository": {},
   "dependencies": {
     "bower": "^1.4.1",
-    "react": "^0.13.2",
-    "react-tools": "^0.13.2"
+    "react": "^0.13.3",
+    "react-tools": "^0.13.3"
   },
   "cacheDirectories": [
     "node_modules",
