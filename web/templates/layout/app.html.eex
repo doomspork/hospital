@@ -39,6 +39,6 @@
    <p>A product of <a href="https://utensils.io">utensils.io</a> &copy;  2015</p>
   </footer>
 </div> <!-- /container -->
-<script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+<script src="<%= static_path(@conn, "/js/bundle.js") %>"></script>
 </body>
 </html>
