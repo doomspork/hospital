@@ -35,7 +35,8 @@ config :guardian, Guardian,
       ttl: { 100_000, :days },
       verify_issuer: true,
       secret_key: "random secret key",
-      serializer: Hospital.UserSerializer,
+      serializer: Hospital.GuardianSerializer,
       permissions: %{
-         default: [:read, :write]
+         default: [:read, :write],
+         medic: [:read, :write]
        }
