@@ -1,10 +1,10 @@
 {
-"name": "gaze",
-"dependencies": {
-"classnames": "~2.1.1",
-"reflux": "~0.2.7",
-"bootstrap": "~3.3.4",
-"react": "~0.13.3",
-"d3": "~3.5.5"
-}
+  "name": "Hospital",
+  "dependencies": {
+    "classnames": "~2.1.1",
+    "bootstrap": "~3.3.4",
+    "react": "~0.13.3",
+    "d3": "~3.5.5",
+    "redux": "https://cdnjs.cloudflare.com/ajax/libs/redux/1.0.1/redux.js"
+  }
 }

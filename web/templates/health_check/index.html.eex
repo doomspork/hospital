@@ -1,9 +1,1 @@
-<%= link to: health_check_path(@conn, :new) do %>
-  <button class="btn btn-primary"><i class="fa fa-plus"></i> Health Check</button>
-<% end %>
-
-<div>
-  <%= for health_check <- @health_checks do %>
-    <%= render "check.html", conn: @conn, health_check: health_check %>
-  <% end %>
-</div>
+<div id="root"></div>

@@ -1,44 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-<title>Medic | Your global health check</title>
-<link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
-<link rel="shortcut icon" href="<%= static_path(@conn, "/favicon.ico") %>" type="image/x-icon">
-<link rel="icon" href="<%= static_path(@conn, "/favicon.ico") %>" type="image/x-icon">
+  <title>Medic | Your global health check</title>
+  <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+  <link rel="shortcut icon" href="<%= static_path(@conn, "/favicon.ico") %>" type="image/x-icon">
+  <link rel="icon" href="<%= static_path(@conn, "/favicon.ico") %>" type="image/x-icon">
 </head>
 
 <body>
-
-<div class="container">
-  <div class="header clearfix">
-    <nav>
-      <ul class="nav navbar-nav pull-right">
-        <%= if authenticated?(@conn) do %> 
-          <li class="active"><a href="/dashboard"><i class="fa fa-heartbeat fa-2x"></i></a></li>
-          <li><a href="/settings"><i class="fa fa-cog fa-2x"></i></a></li>
-          <li><a href="/logout"><i class="fa fa-sign-out fa-2x"></i></a></li>
-        <% end %>
-      </ul>
-    </nav>
-    <h3 class="text-muted"><img src="<%= static_path(@conn, "/images/medic.png") %>" width="50px" height="50px">
-      Medic</h3>
-  </div>
-  
-  <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-  <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-
   <%= @inner %>
-
-  <footer class="footer">
-   <p>A product of <a href="https://utensils.io">utensils.io</a> &copy;  2015</p>
-  </footer>
-</div> <!-- /container -->
-<script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+  <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+  <script>require('web/static/js/app')</script>
 </body>
 </html>

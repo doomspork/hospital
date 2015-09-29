@@ -11,7 +11,13 @@ exports.config = {
       }
     },
     stylesheets: {
-      joinTo: 'css/app.css'
+      joinTo: 'css/app.css',
+      order: {
+        before: [
+          /^bower_components/,
+          /^web\/static\/vendor/
+        ]
+      }
     },
     templates: {
       joinTo: 'js/app.js'
