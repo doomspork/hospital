@@ -6,11 +6,12 @@ defmodule Hospital.Report do
     field :results, :map
 
     belongs_to :health_check, Hospital.HealthCheck
+    belongs_to :medic, Hospital.Medic
 
     timestamps
   end
 
-  @required_fields ~w(successful health_check_id)
+  @required_fields ~w(successful medic_id health_check_id)
   @optional_fields ~w(results)
 
   def create_changeset(model, params \\ :empty) do

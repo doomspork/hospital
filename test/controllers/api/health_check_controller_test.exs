@@ -12,7 +12,7 @@ defmodule Hospital.Api.HealthCheckControllerTest do
     {:ok, conn: conn, jwt: jwt}
   end
 
-  test "requires api token", %{conn: conn} do
+  test "requires permissions", %{conn: conn} do
     conn = get conn, health_check_api_path(conn, :index)
     assert conn.state == :sent
     assert conn.status == 401
