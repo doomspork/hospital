@@ -29,7 +29,7 @@ defmodule Hospital.User do
     |> cast(params, ~w(name email password password_confirmation))
     |> validate_password_confirmation
     |> validate_length(:password, min: 8)
-    |> unique_constraint(:email)
+    |> unique_constraint(:email, name: :email)
   end
 
   def update_changeset(model, params \\ :empty) do

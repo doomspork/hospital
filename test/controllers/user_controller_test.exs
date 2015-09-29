@@ -38,6 +38,7 @@ defmodule Hospital.UserControllerTest do
     conn = post conn, signup_path(conn, :create), user: @valid_attrs
     assert html_response(conn, 200) =~ "User already exists."
   end
+
   #test "shows chosen resource", %{conn: conn, user: user} do
   #  conn = sign_in(conn, user)
   #  conn = get conn, user_path(conn, :show, user)

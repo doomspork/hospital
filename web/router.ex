@@ -16,7 +16,7 @@ defmodule Hospital.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug Guardian.Plug.VerifyHeader
+    plug Guardian.Plug.VerifyHeader, realm: "Bearer"
     plug Guardian.Plug.LoadResource
   end
 
@@ -41,6 +41,7 @@ defmodule Hospital.Router do
    scope "/api", Hospital do
      pipe_through :api
 
-     resources "/reports", ReportController, only: [:create]
+     resources "/reports", Api.ReportController, only: [:create]
+     resources "/health_checks", Api.HealthCheckController, only: [:index], as: :health_check_api
    end
 end

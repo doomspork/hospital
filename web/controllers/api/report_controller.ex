@@ -1,14 +1,12 @@
-defmodule Hospital.ReportController do
+defmodule Hospital.Api.ReportController do
   use Hospital.Web, :controller
 
   alias Hospital.Report
+  alias Hospital.SessionController
 
+  plug Guardian.Plug.EnsureAuthenticated, %{ on_failure: { SessionController, :unauthenticated_api } }
+  plug Guardian.Plug.EnsurePermissions, medic: [:write], on_failure: { SessionController, :forbidden_api }
   plug :scrub_params, "report" when action in [:create]
-
-  def index(conn, _params) do
-    reports = Repo.all(Report)
-    render(conn, "index.json", reports: reports)
-  end
 
   def create(conn, %{"report" => report_params}) do
     changeset = Report.create_changeset(%Report{}, report_params)
@@ -23,10 +21,5 @@ defmodule Hospital.ReportController do
         |> put_status(:unprocessable_entity)
         |> render(Hospital.ChangesetView, "error.json", changeset: changeset)
     end
-  end
-
-  def show(conn, %{"id" => id}) do
-    report = Repo.get!(Report, id)
-    render conn, "show.json", report: report
   end
 end
