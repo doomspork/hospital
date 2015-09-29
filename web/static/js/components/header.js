@@ -1,6 +1,15 @@
 import React from "bower_components/react/react";
 
 export default class Header extends React.Component {
+  propTypes: {}
+  mixins:    []
+
+  getInitialState() {}
+  getDefaultProps() { return {} }
+  componentWillMount() {}
+  componentWillReceiveProps() {}
+  componentWillUnmount() {}
+  
   render() {
     return (
       <div className="header clearfix">
