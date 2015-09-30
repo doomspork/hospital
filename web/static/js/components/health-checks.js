@@ -17,9 +17,10 @@ module.exports = React.createClass({
       });
   },
   render: function() {
+    const { healthChecks } = this.state;
     return (
       <div className="health-checks">
-        {this.state.healthChecks.map(function(instance) {
+        { healthChecks.map(function(instance) {
           return (
             <HealthCheck
               name={instance.name}
