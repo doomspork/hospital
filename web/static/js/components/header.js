@@ -1,14 +1,7 @@
 let React = require('react');
 
-export default class Header extends React.Component {
-  propTypes: {}
-  mixins:    []
-
-  componentWillMount() {}
-  componentWillReceiveProps() {}
-  componentWillUnmount() {}
-
-  render() {
+module.exports = React.createClass({
+  render: function() {
     return (
       <div className="header clearfix">
         <nav>
@@ -25,4 +18,4 @@ export default class Header extends React.Component {
       </div>
     )
   }
-};
+});

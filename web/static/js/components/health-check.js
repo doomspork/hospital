@@ -1,27 +1,24 @@
 let React = require('react');
 
-export default class HealthCheck extends React.Component {
-  propTypes: {}
-  mixins:    []
-
-  componentWillMount() {}
-  componentWillReceiveProps() {}
-  componentWillUnmount() {}
-
-  render() {
-    let name = "Some health check name";
-    let link = "/foo";
-
+module.exports = React.createClass({
+  propTypes: {
+    name: React.PropTypes.string,
+    options: React.PropTypes.object,
+    target: React.PropTypes.string,
+    type: React.PropTypes.string,
+    id: React.PropTypes.number
+  },
+  render: function() {
     return (
       <div className="panel panel-default">
         <div className="panel-heading">
           <div className="row">
             <div className="col-md-6">
-              <h3 className="panel-title">{name}</h3>
+              <h3 className="panel-title">{this.props.name}</h3>
             </div>
             <div className="col-md-6">
               <span className="pull-right">
-                <a href="{link}"><i class="fa fa-wrench"></i></a>
+                <a href="{this.props.target}" target="_blank"><i class="fa fa-wrench"></i></a>
                 <i className="fa fa-close"></i>
               </span>
             </div>
@@ -33,4 +30,4 @@ export default class HealthCheck extends React.Component {
       </div>
     )
   }
-};
+});
