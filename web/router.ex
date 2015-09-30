@@ -28,6 +28,7 @@ defmodule Hospital.Router do
     delete "/logout", SessionController, :delete, as: :logout
     get "/logout", SessionController, :delete, as: :logout
 
+    get "/account", UserController, :show, as: :account
     get "/signup", UserController, :new, as: :signup
     post "/signup", UserController, :create, as: :signup
 

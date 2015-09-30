@@ -4,9 +4,6 @@ defmodule Hospital.UserController do
   alias Hospital.User
   alias Hospital.SessionController
 
-  plug Guardian.Plug.EnsureAuthenticated, %{ on_failure: { SessionController, :new } } when not action in [:new, :create]
-  plug Guardian.Plug.EnsurePermissions, %{ on_failure: { SessionController, :forbidden }, default: [:read, :write] } when action in [:edit, :update]
-
   plug :scrub_params, "user" when action in [:create, :update]
 
   def new(conn, _params) do
@@ -36,38 +33,11 @@ defmodule Hospital.UserController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    user = Repo.get(User, id)
-    render(conn, "show.html", user: user)
-  end
-
-  def edit(conn, %{"id" => id}) do
-    user = Repo.get(User, id)
-    changeset = User.update_changeset(user)
-    render(conn, "edit.html", user: user, changeset: changeset)
-  end
-
-  def update(conn, %{"id" => id, "user" => user_params}) do
-    user = Repo.get(User, id)
-    changeset = User.update_changeset(user, user_params)
-
-    if changeset.valid? do
-      Repo.update(changeset)
-
-      conn
-      |> put_flash(:info, "User updated successfully.")
-      |> redirect(to: page_path(conn, :index))
-    else
-      render(conn, "edit.html", user: user, changeset: changeset)
+  def show(conn, _) do
+    current_resource = Guardian.Plug.current_resource(conn)
+    case current_resource do
+      %User{} -> render(conn, "show.json", user: current_resource)
+      nil -> SessionController.unauthenticated_api(conn)
     end
-  end
-
-  def delete(conn, %{"id" => id}) do
-    user = Repo.get(User, id)
-    Repo.delete(user)
-
-    conn
-    |> put_flash(:info, "User deleted successfully.")
-    |> redirect(to: page_path(conn, :index))
   end
 end

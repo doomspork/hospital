@@ -36,7 +36,7 @@ defmodule Hospital.SessionController do
     |> redirect(to: login_path(conn, :new))
   end
 
-  def unauthenticated_api(conn, _params) do
+  def unauthenticated_api(conn, _params \\ :empty) do
     the_conn = put_status(conn, 401)
     case Guardian.Plug.claims(conn) do
       { :error, :no_session } -> json(the_conn, %{ error: "Login required" })
@@ -54,6 +54,7 @@ defmodule Hospital.SessionController do
 
   def forbidden(conn, _) do
     conn
+    |> put_status(403)
     |> put_flash(:error, "Forbidden")
     |> redirect(to: page_path(conn, :index))
   end

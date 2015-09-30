@@ -1,6 +1,8 @@
 defmodule Hospital.UserControllerTest do
   use Hospital.ConnCase
 
+  import Hospital.TestHelper
+
   alias Hospital.User
   @valid_attrs %{email: "user@example.com",
                  password: "a hard password",
@@ -11,7 +13,25 @@ defmodule Hospital.UserControllerTest do
   setup do
     conn = conn()
 
-    {:ok, conn: conn}
+    user = Repo.insert!(%User{email: "test@example.com"})
+
+    {:ok, conn: conn, user: user}
+  end
+
+  test "returns account when logged in", %{conn: conn, user: user} do
+    conn = sign_in(conn, user)
+    conn = get(conn, account_path(conn, :show))
+    assert conn.status == 200
+
+    results = conn.resp_body
+    json = Poison.decode!(results)
+    assert json["data"]["email"] == user.email
+  end
+
+  test "does not return account when logged out", %{conn: conn} do
+    conn = get(conn, account_path(conn, :show))
+    assert conn.state == :sent
+    assert conn.status == 401
   end
 
   test "renders sign up form", %{conn: conn} do
@@ -38,31 +58,4 @@ defmodule Hospital.UserControllerTest do
     conn = post conn, signup_path(conn, :create), user: @valid_attrs
     assert html_response(conn, 200) =~ "User already exists."
   end
-
-  #test "shows chosen resource", %{conn: conn, user: user} do
-  #  conn = sign_in(conn, user)
-  #  conn = get conn, user_path(conn, :show, user)
-  #  assert html_response(conn, 200) =~ "Show user"
-  #end
-
-  #test "renders form for editing chosen resource", %{conn: conn, user: user} do
-  #  conn = sign_in(conn, user)
-  #  conn = get conn, user_path(conn, :edit, user)
-  #  assert html_response(conn, 200) =~ "Edit user"
-  #end
-
-  #test "updates chosen resource and redirects when data is valid", %{conn: conn, user: user} do
-  #  conn = sign_in(conn, user)
-  #  conn = put conn, user_path(conn, :update, user), user: @valid_attrs
-  #  assert redirected_to(conn) == user_path(conn, :index)
-  #  assert Repo.get_by(User, email: @valid_attrs.email)
-  #end
-
-  #test "deletes chosen resource", %{conn: conn} do
-  #  user = Repo.insert! %User{}
-  #  conn = sign_in(conn, user)
-  #  conn = delete conn, user_path(conn, :delete, user)
-  #  assert redirected_to(conn) == user_path(conn, :index)
-  #  refute Repo.get(User, user.id)
-  #end
 end
