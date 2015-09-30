@@ -1,25 +1,16 @@
-let React = require('react');
-let Header = require('./header');
-let Footer = require('./footer');
-let HealthCheck = require('./health-check');
+let React        = require('react');
+let Header       = require('./header');
+let Footer       = require('./footer');
+let HealthChecks = require('./health-checks');
 
-export default class HospitalApp extends React.Component {
-  propTypes: {}
-  mixins:    []
-
-  componentWillMount() {}
-  componentWillReceiveProps() {}
-  componentWillUnmount() {}
-
-  render() {
+module.exports = React.createClass({
+  render: function() {
     return (
       <div className='container'>
         <Header />
-        <HealthCheck />
-        <HealthCheck />
-        <HealthCheck />
+        <HealthChecks />
         <Footer />
       </div>
     )
   }
-};
+});

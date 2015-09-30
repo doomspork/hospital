@@ -16,7 +16,9 @@ defmodule Hospital.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug Guardian.Plug.VerifyHeader, realm: "Bearer"
+    # plug Guardian.Plug.VerifyHeader, realm: "Bearer"
+    plug :fetch_session
+    plug Guardian.Plug.VerifySession
     plug Guardian.Plug.LoadResource
   end
 
