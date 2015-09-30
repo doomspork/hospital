@@ -33,7 +33,7 @@ defmodule Hospital.Router do
     post "/signup", UserController, :create, as: :signup
 
     get "/", PageController, :index
-    get "/dashboard", HealthCheckController, :index
+    get "/dashboard", PageController, :dashboard, as: :dashboard
     get "/settings", PageController, :settings, as: :settings
 
     resources "/health_checks", HealthCheckController
