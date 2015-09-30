@@ -107,7 +107,8 @@ These endpoints all require a session. If the event that the user is not logged 
     		"options": { }
   		}
 	}
-
+	```
+	
 + #### PUT `/health_checks/:id`
 
 	Update the health check if it's owned by the user.
@@ -124,6 +125,7 @@ These endpoints all require a session. If the event that the user is not logged 
     		"options": { }
   		}
 	}
+	```
 		 	
 + #### DELETE `/health_checks/:id`
 
