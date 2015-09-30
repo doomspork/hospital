@@ -45,10 +45,11 @@ defmodule Hospital.SessionController do
     end
   end
 
-  def forbidden_api(conn, _) do
+  def forbidden_api(conn, _ \\ :empty) do
     conn
     |> put_status(403)
     |> json(%{ error: :forbidden })
+    |> halt
   end
 
   def forbidden(conn, _) do

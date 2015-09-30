@@ -21,14 +21,14 @@ defmodule Hospital.Api.ReportControllerTest do
   end
 
   test "requires permissions", %{conn: conn} do
-    conn = post conn, report_path(conn, :create), report: @valid_attrs
+    conn = post conn, report_api_path(conn, :create), report: @valid_attrs
     assert conn.state == :sent
     assert conn.status == 401
   end
 
   test "creates and renders resource when data is valid", %{conn: conn, jwt: jwt} do
     conn = put_req_header(conn, "authorization", "Bearer #{jwt}")
-    conn = post conn, report_path(conn, :create), report: @valid_attrs
+    conn = post conn, report_api_path(conn, :create), report: @valid_attrs
     assert json_response(conn, 201)["data"]["id"]
     assert Repo.get_by(Report, @valid_attrs)
   end

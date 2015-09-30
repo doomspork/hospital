@@ -15,7 +15,7 @@ defmodule Hospital.Api.ReportController do
       {:ok, report} ->
         conn
         |> put_status(:created)
-        |> render("show.json", report: report)
+        |> render(Hospital.ReportView, "show.json", report: report)
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)

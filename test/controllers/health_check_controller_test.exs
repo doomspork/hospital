@@ -6,68 +6,30 @@ defmodule Hospital.HealthCheckControllerTest do
   alias Hospital.HealthCheck
   alias Hospital.User
 
-  @create_attrs %{name: "an example", target: "127.0.0.1", type: "ping", user: %User{}}
-
   setup do
     conn = conn()
+
     user = Repo.insert!(%User{email: "test@example.com"})
+    Repo.insert!(%HealthCheck{user_id: user.id})
+    Repo.insert!(%HealthCheck{})
+
     {:ok, conn: conn, user: user}
   end
 
-  test "requires a session", %{conn: conn} do
+  test "requires permissions", %{conn: conn} do
     conn = get conn, health_check_path(conn, :index)
-    assert html_response(conn, 200) =~ "Login"
+    assert conn.state == :sent
+    assert conn.status == 401
   end
 
-  test "lists all entries on index", %{conn: conn, user: user} do
-    conn = sign_in(conn, user)
+  test "returns a list of health checks for a User", %{conn: conn, user: user} do
+    conn = sign_in conn, user
     conn = get conn, health_check_path(conn, :index)
-    assert html_response(conn, 200) =~ "<a href=\"/health_checks/new\">"
+    assert conn.state == :sent
+    assert conn.status == 200
+
+    results = conn.resp_body
+    json = Poison.decode!(results)
+    assert length(json["data"]) == 1
   end
-
-  test "renders form for new resources", %{conn: conn, user: user} do
-    conn = sign_in(conn, user)
-    conn = get conn, health_check_path(conn, :new)
-    assert html_response(conn, 200) =~ "New Health Check"
-  end
-
-  test "creates resource and redirects when data is valid", %{conn: conn, user: user} do
-    conn = sign_in(conn, user)
-    conn = post conn, health_check_path(conn, :create), health_check: @create_attrs
-    assert redirected_to(conn) == health_check_path(conn, :index)
-    assert Repo.get_by(HealthCheck, name: @create_attrs.name)
-  end
-
-  test "does not create resource and renders errors when data is invalid", %{conn: conn, user: user} do
-    invalid_attrs = Map.delete(@create_attrs, :name)
-    conn = sign_in(conn, user)
-    conn = post conn, health_check_path(conn, :create), health_check: invalid_attrs
-    assert html_response(conn, 200) =~ "Oops, something went wrong! Please check the errors below:"
-  end
-
-  # test "renders form for editing chosen resource", %{conn: conn} do
-  #   health_check = Repo.insert! %HealthCheck{}
-  #   conn = get conn, health_check_path(conn, :edit, health_check)
-  #   assert html_response(conn, 200) =~ "Edit health check"
-  # end
-
-  # test "updates chosen resource and redirects when data is valid", %{conn: conn} do
-  #   health_check = Repo.insert! %HealthCheck{}
-  #   conn = put conn, health_check_path(conn, :update, health_check), health_check: @valid_attrs
-  #   assert redirected_to(conn) == health_check_path(conn, :show, health_check)
-  #   assert Repo.get_by(HealthCheck, @valid_attrs)
-  # end
-
-  # test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-  #   health_check = Repo.insert! %HealthCheck{}
-  #   conn = put conn, health_check_path(conn, :update, health_check), health_check: @invalid_attrs
-  #   assert html_response(conn, 200) =~ "Edit health check"
-  # end
-
-  # test "deletes chosen resource", %{conn: conn} do
-  #   health_check = Repo.insert! %HealthCheck{}
-  #   conn = delete conn, health_check_path(conn, :delete, health_check)
-  #   assert redirected_to(conn) == health_check_path(conn, :index)
-  #   refute Repo.get(HealthCheck, health_check.id)
-  # end
 end

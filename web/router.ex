@@ -2,7 +2,7 @@ defmodule Hospital.Router do
   use Hospital.Web, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
+    plug :accepts, ["html", "json"]
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
@@ -38,10 +38,10 @@ defmodule Hospital.Router do
     resources "/health_checks", HealthCheckController
   end
 
-   scope "/api", Hospital do
-     pipe_through :api
+  scope "/api", Hospital do
+    pipe_through :api
 
-     resources "/reports", Api.ReportController, only: [:create]
-     resources "/health_checks", Api.HealthCheckController, only: [:index], as: :health_check_api
-   end
+    post "/reports", Api.ReportController, :create, as: :report_api
+    get "/health_checks", Api.HealthCheckController, :index, as: :health_check_api
+  end
 end
