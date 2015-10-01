@@ -1,12 +1,8 @@
-let React       = require('react');
-let HealthCheck = require('./health-check');
+import React, { Component, PropTypes } from 'react';
+import HealthCheck from './health-check';
 
-module.exports = React.createClass({
-  propTypes: {
-    onDeleteClick: React.PropTypes.func,
-    healthChecks: React.PropTypes.array
-  },
-  render: function() {
+export default class HealthCheckList extends Component {
+  render() {
     const { healthChecks, onDeleteClick } = this.props;
     return (
       <div className="health-checks">
@@ -20,4 +16,9 @@ module.exports = React.createClass({
       </div>
     )
   }
-});
+};
+
+HealthCheckList.propTypes = {
+  onDeleteClick: PropTypes.func,
+  healthChecks: PropTypes.array
+}

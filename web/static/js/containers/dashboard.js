@@ -15,7 +15,7 @@ let app = React.createClass({
   componentDidMount: function() {
     const { dispatch } = this.props;
     request
-      .get('/api/health_checks')
+      .get('/health_checks')
       .end((err, res) => {
         let data = JSON.parse(res.text).data;
         data.forEach(function(item) {

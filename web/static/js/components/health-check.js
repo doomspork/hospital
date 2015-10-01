@@ -1,12 +1,7 @@
-let React = require('react');
+import React, { Component, PropTypes } from 'react';
 
-module.exports = React.createClass({
-  propTypes: {
-    name: React.PropTypes.string,
-    target: React.PropTypes.string,
-    onDeleteClick: React.PropTypes.func
-  },
-  render: function() {
+export default class HealthCheck extends Component {
+  render() {
     return (
       <div className="health-check panel panel-default">
         <div className="panel-heading">
@@ -28,4 +23,11 @@ module.exports = React.createClass({
       </div>
     )
   }
-});
+};
+
+HealthCheck.propTypes = {
+  name: PropTypes.string,
+  healthCheckType: PropTypes.string,
+  target: PropTypes.string,
+  onDeleteClick: PropTypes.func
+}
