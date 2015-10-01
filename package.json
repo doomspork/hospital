@@ -4,6 +4,8 @@
     "bower": "^1.4.1",
     "react": "^0.13.3",
     "react-tools": "^0.13.3",
+    "redux-logger": "^2.0.1",
+    "redux-thunk": "^1.0.0",
     "superagent": "^1.4.0"
   },
   "cacheDirectories": [
