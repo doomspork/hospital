@@ -3,14 +3,12 @@ let React = require('react');
 module.exports = React.createClass({
   propTypes: {
     name: React.PropTypes.string,
-    options: React.PropTypes.object,
     target: React.PropTypes.string,
-    type: React.PropTypes.string,
-    id: React.PropTypes.number
+    onDeleteClick: React.PropTypes.func
   },
   render: function() {
     return (
-      <div className="panel panel-default">
+      <div className="health-check panel panel-default">
         <div className="panel-heading">
           <div className="row">
             <div className="col-md-6">
@@ -19,7 +17,7 @@ module.exports = React.createClass({
             <div className="col-md-6">
               <span className="pull-right">
                 <a href="{this.props.target}" target="_blank"><i class="fa fa-wrench"></i></a>
-                <i className="fa fa-close"></i>
+                <i className="fa fa-close" onClick={this.props.onDeleteClick}></i>
               </span>
             </div>
           </div>
