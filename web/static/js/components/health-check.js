@@ -11,7 +11,7 @@ export default class HealthCheck extends Component {
             </div>
             <div className="col-md-6">
               <span className="pull-right">
-                <a href="{this.props.target}" target="_blank"><i class="fa fa-wrench"></i></a>
+                <i className="fa fa-wrench"></i>
                 <i className="fa fa-close" onClick={this.props.onDeleteClick}></i>
               </span>
             </div>

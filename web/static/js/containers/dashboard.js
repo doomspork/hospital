@@ -1,29 +1,19 @@
-let React           = require('react');
-let { connect }     = require('react-redux');
-let request         = require('superagent');
-let Header          = require('../components/header');
-let Footer          = require('../components/footer');
-let HealthCheckList = require('../components/health-checks');
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 
-let { deleteHealthCheck,
-      addHealthCheck } = require('../actions/healthChecks').actionCreators;
+import Header from '../components/header';
+import Footer from '../components/footer';
+import HealthCheckList from '../components/health-checks';
+import { deleteHealthCheck,
+         fetchHealthChecks } from '../actions/healthChecks'
 
-let app = React.createClass({
-  propTypes: {
-    healthChecks: React.PropTypes.array
-  },
-  componentDidMount: function() {
+class App extends Component {
+  componentDidMount() {
     const { dispatch } = this.props;
-    request
-      .get('/health_checks')
-      .end((err, res) => {
-        let data = JSON.parse(res.text).data;
-        data.forEach(function(item) {
-          dispatch(addHealthCheck(item));
-        });
-      });
-  },
-  render: function() {
+    dispatch(fetchHealthChecks());
+  }
+
+  render() {
     const { dispatch, healthChecks } = this.props;
     return (
       <div className='container'>
@@ -35,7 +25,11 @@ let app = React.createClass({
       </div>
     )
   }
-});
+};
+
+App.propTypes = {
+  healthChecks: PropTypes.array
+};
 
 let injectedState = function(state) {
   return {
@@ -43,4 +37,4 @@ let injectedState = function(state) {
   };
 }
 
-module.exports = connect(injectedState)(app);
+module.exports = connect(injectedState)(App);

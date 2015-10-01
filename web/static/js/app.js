@@ -1,10 +1,11 @@
-let React                           = require('react');
-let { createStore, applyMiddleware} = require('redux');
-let { Provider }                    = require('react-redux');
-let DashboardContainer              = require('./containers/dashboard');
-let DashboardReducer                = require('./reducers/dashboard');
-let thunkMiddleware                 = require('redux-thunk');
-let createLogger                    = require('redux-logger');
+import React from 'react';
+import { createStore, applyMiddleware} from 'redux';
+import { Provider } from 'react-redux';
+import thunkMiddleware from 'redux-thunk';
+import createLogger from 'redux-logger';
+
+import DashboardContainer from './containers/dashboard';
+import DashboardReducer from './reducers/dashboard';
 
 const loggerMiddleware = createLogger();
 const createStoreWithMiddleware = applyMiddleware(

@@ -1,10 +1,17 @@
-let { combineReducers } = require('redux');
-let {
-  ADD_HEALTH_CHECK,
-  DELETE_HEALTH_CHECK } = require('../actions/healthChecks').actions;
+import { combineReducers } from 'redux';
 
-// Reducers
-function healthChecks(state = [], action) {
+import {
+  ADD_HEALTH_CHECK,
+  DELETE_HEALTH_CHECK,
+  FETCH_HEALTH_CHECKS } from '../actions/healthChecks';
+
+const INITIAL_STATE = [];
+
+function healthChecks(state, action) {
+  if(state === undefined) {
+    return INITIAL_STATE;
+  }
+
   switch (action.type) {
     case ADD_HEALTH_CHECK:
       return [...state, {
