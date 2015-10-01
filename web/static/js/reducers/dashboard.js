@@ -15,10 +15,10 @@ function healthChecks(state = [], action) {
         options: action.options
       }];
     case DELETE_HEALTH_CHECK:
-      // TODO: Actually update server
+      // TODO: Actually update server, right now only happening through the UI
       return state.filter(function(hc) {
         return hc.id !== action.id;
-      })
+      });
     default:
       return state;
   }
