@@ -14,13 +14,13 @@ class App extends Component {
   }
 
   render() {
-    const { dispatch, healthChecks } = this.props;
+    const { csrf, dispatch, healthChecks } = this.props;
     return (
       <div className='container'>
         <Header />
         <HealthCheckList
           healthChecks={healthChecks}
-          onDeleteClick={id => dispatch(deleteHealthCheck(id))} />
+          onDeleteClick={id => dispatch(deleteHealthCheck(id, csrf))} />
         <Footer />
       </div>
     )
@@ -28,13 +28,15 @@ class App extends Component {
 };
 
 App.propTypes = {
-  healthChecks: PropTypes.array
+  healthChecks: PropTypes.array,
+  csrf: PropTypes.string
 };
 
-let injectedState = function(state) {
+let mapStateToProps = function(state) {
   return {
-    healthChecks: state.healthChecks
+    healthChecks: state.healthChecks,
+    csrf: state.csrfToken
   };
 }
 
-module.exports = connect(injectedState)(App);
+module.exports = connect(mapStateToProps)(App);

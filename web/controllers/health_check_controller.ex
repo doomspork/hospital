@@ -8,7 +8,6 @@ defmodule Hospital.HealthCheckController do
   alias Hospital.User
 
   plug Guardian.Plug.EnsureAuthenticated, %{ on_failure: { SessionController, :unauthenticated_api } }
-  plug Guardian.Plug.EnsurePermissions, default: [:read, :write], on_failure: { SessionController, :forbidden_api }
   plug :retrieve_health_checks
 
   def index(conn, _params) do
@@ -36,7 +35,7 @@ defmodule Hospital.HealthCheckController do
             where: h.user_id == ^user_id and h.id == ^id
 
     case Repo.one(query) do
-      {:ok, health_check} ->
+      health_check ->
         assign(conn, :health_check, health_check)
       nil ->
         SessionController.forbidden_api(conn)

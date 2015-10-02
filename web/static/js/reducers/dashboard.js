@@ -2,14 +2,11 @@ import { combineReducers } from 'redux';
 
 import {
   ADD_HEALTH_CHECK,
-  DELETE_HEALTH_CHECK,
-  FETCH_HEALTH_CHECKS } from '../actions/healthChecks';
-
-const INITIAL_STATE = [];
+  DELETE_HEALTH_CHECK } from '../actions/healthChecks';
 
 function healthChecks(state, action) {
   if(state === undefined) {
-    return INITIAL_STATE;
+    return [];
   }
 
   switch (action.type) {
@@ -18,7 +15,7 @@ function healthChecks(state, action) {
         id: action.id,
         name: action.name,
         target: action.target,
-        healthCheckType: action.type,
+        healthCheckType: action.healthCheckType,
         options: action.options
       }];
     case DELETE_HEALTH_CHECK:
@@ -31,4 +28,12 @@ function healthChecks(state, action) {
   }
 }
 
-module.exports = combineReducers({ healthChecks });
+function csrfToken(state, action) {
+  if(state === undefined) {
+    let node = document.getElementById('root').attributes[1];
+    return node.nodeValue;
+  }
+  return state;
+}
+
+module.exports = combineReducers({ csrfToken, healthChecks });
