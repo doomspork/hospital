@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Summary from './summary';
 
 export default class HealthCheck extends Component {
   render() {
@@ -7,7 +8,10 @@ export default class HealthCheck extends Component {
         <div className="panel-heading">
           <div className="row">
             <div className="col-md-6">
-              <h3 className="panel-title">{this.props.name}</h3>
+              <h3 className="panel-title">
+                <span className="label label-primary">{this.props.healthCheckType}</span>
+                <span className="health-check-name">{this.props.name}</span>
+              </h3>
             </div>
             <div className="col-md-6">
               <span className="pull-right">
@@ -18,7 +22,7 @@ export default class HealthCheck extends Component {
           </div>
         </div>
         <div className="panel-body">
-          Panel content
+          <Summary />
         </div>
       </div>
     )
@@ -26,6 +30,7 @@ export default class HealthCheck extends Component {
 };
 
 HealthCheck.propTypes = {
+  id: PropTypes.number,
   name: PropTypes.string,
   healthCheckType: PropTypes.string,
   target: PropTypes.string,

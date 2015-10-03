@@ -14,6 +14,26 @@ defmodule Hospital.HealthCheckController do
     render(conn, "index.json", health_checks: conn.assigns[:health_checks])
   end
 
+  def new(conn, _params) do
+    changeset = HealthCheck.create_changeset(%HealthCheck{})
+    render(conn, "new.html", changeset: changeset)
+  end
+
+  def create(conn, %{"health_check" => params}) do
+    user = Guardian.Plug.current_resource(conn)
+    params = Map.put(params, "user_id", user.id)
+    changeset = HealthCheck.create_changeset(%HealthCheck{}, params)
+
+    case Repo.insert(changeset) do
+      {:ok, _health_check} ->
+        conn
+        |> put_flash(:info, "Health check created successfully.")
+        |> redirect(to: health_check_path(conn, :index))
+      {:error, changeset} ->
+        render(conn, "new.html", changeset: changeset)
+    end
+  end
+
   def show(conn, _) do
     render(conn, "show.json", health_check: conn.assigns[:health_check])
   end

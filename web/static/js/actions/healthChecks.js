@@ -2,6 +2,7 @@ import request from 'superagent';
 
 export const ADD_HEALTH_CHECK    = 'ADD_HEALTH_CHECK';
 export const DELETE_HEALTH_CHECK = 'DELETE_HEALTH_CHECK';
+export const UPDATE_HEALTH_CHECK = 'UPDATE_HEALTH_CHECK';
 
 export function addHealthCheck(hc) {
   return {
@@ -22,8 +23,7 @@ function removeHealthCheck(id) {
 }
 
 export function deleteHealthCheck(id, csrf_token) {
-  return dispatch => {
-    debugger;
+  return function(dispatch) {
     request.del('/health_checks/' + id)
     .set('x-csrf-token', csrf_token)
     .end(function(err, res){
@@ -37,7 +37,7 @@ export function deleteHealthCheck(id, csrf_token) {
 }
 
 function receiveHealthChecks(health_checks) {
-  return dispatch => {
+  return function(dispatch) {
     health_checks.forEach(function(health_check){
       dispatch(addHealthCheck(health_check));
     });
@@ -45,7 +45,7 @@ function receiveHealthChecks(health_checks) {
 }
 
 export function fetchHealthChecks() {
-  return dispatch => {
+  return function(dispatch) {
     request.get('/health_checks')
     .end(function(err, res){
       if (res.ok) {
@@ -56,4 +56,30 @@ export function fetchHealthChecks() {
       }
     });
   };
+}
+
+function receiveHealthCheckUpdates(id, json) {
+  return {
+    type: UPDATE_HEALTH_CHECK,
+    id: id,
+    json
+  }
+}
+
+export function pollHealthCheckUpdates(id) {
+  return function(dispatch) {
+    setTimeout(() => {
+      request.get('/health_checks/' + id + '/summary')
+      .end(function(err, res){
+        if (res.ok) {
+          let json = res.body.data;
+          dispatch(receiveHealthCheckUpdates(id, json));
+
+        } else {
+          // Handle failure
+        }
+        dispatch(pollHealthCheckUpdates(id));
+      });
+    }, 60000);
+  }
 }

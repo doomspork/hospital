@@ -2,7 +2,8 @@ import { combineReducers } from 'redux';
 
 import {
   ADD_HEALTH_CHECK,
-  DELETE_HEALTH_CHECK } from '../actions/healthChecks';
+  DELETE_HEALTH_CHECK,
+  UPDATE_HEALTH_CHECK } from '../actions/healthChecks';
 
 function healthChecks(state, action) {
   if(state === undefined) {
@@ -19,10 +20,14 @@ function healthChecks(state, action) {
         options: action.options
       }];
     case DELETE_HEALTH_CHECK:
-      // TODO: Actually update server, right now only happening through the UI
       return state.filter(function(hc) {
         return hc.id !== action.id;
       });
+    case UPDATE_HEALTH_CHECK:
+      let hc = state.find(function(hc) {
+        return hc.id == action.id
+      });
+
     default:
       return state;
   }
