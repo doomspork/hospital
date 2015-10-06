@@ -3,7 +3,7 @@ defmodule Hospital.Api.ReportControllerTest do
 
   alias Hospital.Report
 
-  @valid_attrs %{successful: true, results: %{}, health_check_id: 1, medic_id: 1}
+  @valid_attrs %{successful: true, response_time: 44.0, health_check_id: 1, medic_id: 1}
   @invalid_attrs %{}
 
   setup do

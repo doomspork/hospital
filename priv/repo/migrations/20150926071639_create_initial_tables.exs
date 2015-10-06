@@ -35,7 +35,7 @@ defmodule Hospital.Repo.Migrations.CreateInitialTables do
     create table(:reports) do
       add :health_check_id, references(:health_checks)
       add :medic_id, references(:medics)
-      add :results, :map
+      add :response_time, :float
       add :successful, :boolean
 
       timestamps

@@ -13,7 +13,7 @@ defmodule Hospital.ReportView do
     %{health_check_id: report.health_check_id,
       id: report.id,
       medic_id: report.medic_id,
-      results: report.results,
+      response_time: report.response_time,
       successful: report.successful}
   end
 end
