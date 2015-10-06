@@ -1,8 +1,6 @@
 defmodule Hospital.HealthCheckControllerTest do
   use Hospital.ConnCase
 
-  import Hospital.TestHelper
-
   alias Hospital.HealthCheck
   alias Hospital.User
 
