@@ -37,6 +37,7 @@ defmodule Hospital.Router do
     get "/settings", PageController, :settings, as: :settings
 
     resources "/health_checks", HealthCheckController
+    get "/reports", ReportSummaryController, :index
   end
 
   scope "/api", Hospital do
