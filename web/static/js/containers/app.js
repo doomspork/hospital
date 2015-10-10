@@ -7,6 +7,7 @@ import HealthCheckList from '../components/health-checks';
 import { deleteHealthCheck,
          fetchHealthChecks } from '../actions'
 
+
 class App extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
@@ -14,12 +15,13 @@ class App extends Component {
   }
 
   render() {
-    const { csrf, dispatch, checksById, reports } = this.props;
+    const { csrf, dispatch, healthChecks, reports } = this.props;
     return (
       <div className='container'>
         <Header />
         <HealthCheckList
-          healthChecks={checksById}
+          healthChecks={healthChecks}
+          reports={reports}
           onDeleteClick={id => dispatch(deleteHealthCheck(id, csrf))} />
         <Footer />
       </div>
@@ -28,14 +30,16 @@ class App extends Component {
 };
 
 App.propTypes = {
-  checksById: PropTypes.object,
-  csrf: PropTypes.string
+  csrf: PropTypes.string,
+  healthChecks: PropTypes.array,
+  reports: PropTypes.object
 };
 
 let mapStateToProps = function(state) {
   return {
-    checksById: state.healthChecks.checksById,
-    csrf: state.csrfToken
+    csrf: state.csrfToken,
+    healthChecks: state.healthChecks,
+    reports: state.reports
   };
 }
 

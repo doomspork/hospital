@@ -1,16 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import HealthCheck from './health-check';
+import keys from 'lodash/object/keys';
 
 export default class HealthCheckList extends Component {
   render() {
     const { healthChecks, onDeleteClick } = this.props;
+    const ids = keys(healthChecks);
     return (
       <div className="health-checks">
-        { healthChecks.map(function(instance, index) {
+        { ids.map(function(id, index) {
+          const instance = healthChecks[id];
           return (
             <HealthCheck {...instance}
               key={index}
-              onDeleteClick={() => onDeleteClick(instance.id)} />
+              onDeleteClick={() => onDeleteClick(id)} />
           )
         })}
       </div>
@@ -19,6 +22,6 @@ export default class HealthCheckList extends Component {
 };
 
 HealthCheckList.propTypes = {
-  onDeleteClick: PropTypes.func,
-  healthChecks: PropTypes.array
+  healthChecks: PropTypes.object.isRequired,
+  onDeleteClick: PropTypes.func.isRequired
 }

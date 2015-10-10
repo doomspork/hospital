@@ -2,17 +2,17 @@ import request from 'superagent';
 
 export const ADD_HEALTH_CHECK    = 'ADD_HEALTH_CHECK';
 export const DELETE_HEALTH_CHECK = 'DELETE_HEALTH_CHECK';
-export const UPDATE_HEALTH_CHECK = 'UPDATE_HEALTH_CHECK';
+export const UPDATE_REPORTS = 'UPDATE_REPORTS';
 
 export function addHealthCheck(hc) {
-  return {
-    type: ADD_HEALTH_CHECK,
-    id: hc.id,
-    name: hc.name,
-    target: hc.target,
-    healthCheckType: hc.type,
-    options: hc.options
-  };
+    return {
+      type: ADD_HEALTH_CHECK,
+      healthCheckType: hc.type,
+      id: hc.id,
+      name: hc.name,
+      options: hc.options,
+      target: hc.target,
+    };
 }
 
 function removeHealthCheck(id) {
@@ -36,21 +36,16 @@ export function deleteHealthCheck(id, csrf_token) {
   };
 }
 
-function receiveHealthChecks(health_checks) {
-  return function(dispatch) {
-    health_checks.forEach(function(health_check){
-      dispatch(addHealthCheck(health_check));
-    });
-  };
-}
-
 export function fetchHealthChecks() {
   return function(dispatch) {
     request.get('/health_checks')
     .end(function(err, res){
       if (res.ok) {
         let json = res.body.data;
-        dispatch(receiveHealthChecks(json));
+        json.forEach(function(health_check){
+          dispatch(addHealthCheck(health_check));
+        });
+        dispatch(pollHealthCheckReports());
       } else {
         // Handle failure
       }
@@ -58,28 +53,26 @@ export function fetchHealthChecks() {
   };
 }
 
-function receiveHealthCheckUpdates(id, json) {
+function receiveHealthCheckReports(data) {
   return {
-    type: UPDATE_HEALTH_CHECK,
-    id: id,
-    json
-  }
+    type: UPDATE_REPORTS,
+    summaries: data
+  };
 }
 
-export function pollHealthCheckUpdates(id) {
+export function pollHealthCheckReports() {
   return function(dispatch) {
     setTimeout(() => {
-      request.get('/health_checks/' + id + '/summary')
+      request.get('/reports')
       .end(function(err, res){
         if (res.ok) {
-          let json = res.body.data;
-          dispatch(receiveHealthCheckUpdates(id, json));
-
+          let data = res.body.data;
+          dispatch(receiveHealthCheckReports(data));
+          dispatch(pollHealthCheckReports());
         } else {
           // Handle failure
         }
-        dispatch(pollHealthCheckUpdates(id));
       });
-    }, 60000);
-  }
+    }, 5000);
+  };
 }

@@ -1,19 +1,9 @@
 import React from 'react';
-import { createStore, applyMiddleware} from 'redux';
 import { Provider } from 'react-redux';
-import thunkMiddleware from 'redux-thunk';
-import createLogger from 'redux-logger';
-
+import configureStore from './store/configureStore';
 import DashboardContainer from './containers/dashboard';
-import DashboardReducer from './reducers/dashboard';
 
-const loggerMiddleware = createLogger();
-const createStoreWithMiddleware = applyMiddleware(
-  thunkMiddleware,
-  loggerMiddleware
-)(createStore);
-
-let store = createStoreWithMiddleware(DashboardReducer);
+const store = configureStore();
 
 React.render(
   <Provider store={store}>
