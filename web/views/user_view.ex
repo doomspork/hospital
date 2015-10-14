@@ -5,9 +5,14 @@ defmodule Hospital.UserView do
     %{data: render_one(user, __MODULE__, "user.json")}
   end
 
+  def render("error.json", %{error: error}) do
+    %{error: error}
+  end
+
   def render("user.json", %{user: user}) do
     %{email: user.email,
       id: user.id,
-      name: user.name}
+      name: user.name,
+      token: user.token}
   end
 end

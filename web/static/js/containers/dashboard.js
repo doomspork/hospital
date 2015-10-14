@@ -5,29 +5,28 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import HealthCheckList from '../components/health-checks';
 import { deleteHealthCheck,
-         fetchHealthChecks } from '../actions'
+         fetchHealthChecks } from '../actions/health-checks'
 
-class App extends Component {
+class Dashboard extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(fetchHealthChecks());
   }
 
   render() {
-    const { csrf, dispatch, checksById, reports } = this.props;
+    const { csrf, dispatch, checksById } = this.props;
     return (
       <div className='container'>
         <Header />
         <HealthCheckList
           healthChecks={checksById}
           onDeleteClick={id => dispatch(deleteHealthCheck(id, csrf))} />
-        <Footer />
       </div>
     )
   }
 };
 
-App.propTypes = {
+Dashboard.propTypes = {
   checksById: PropTypes.object,
   csrf: PropTypes.string
 };
@@ -39,4 +38,4 @@ let mapStateToProps = function(state) {
   };
 }
 
-module.exports = connect(mapStateToProps)(App);
+module.exports = connect(mapStateToProps)(Dashboard);

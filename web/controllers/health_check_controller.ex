@@ -55,7 +55,7 @@ defmodule Hospital.HealthCheckController do
             where: h.user_id == ^user_id and h.id == ^id
 
     case Repo.one(query) do
-      health_check ->
+      %HealthCheck{} = health_check ->
         assign(conn, :health_check, health_check)
       nil ->
         SessionController.forbidden_api(conn)

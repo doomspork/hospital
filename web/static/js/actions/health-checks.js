@@ -1,12 +1,9 @@
+import * as constants from '../constants';
 import request from 'superagent';
-
-export const ADD_HEALTH_CHECK    = 'ADD_HEALTH_CHECK';
-export const DELETE_HEALTH_CHECK = 'DELETE_HEALTH_CHECK';
-export const UPDATE_REPORTS = 'UPDATE_REPORTS';
 
 export function addHealthCheck(hc) {
     return {
-      type: ADD_HEALTH_CHECK,
+      type: constants.ADD_HEALTH_CHECK,
       healthCheckType: hc.type,
       id: hc.id,
       name: hc.name,
@@ -17,15 +14,16 @@ export function addHealthCheck(hc) {
 
 function removeHealthCheck(id) {
   return {
-    type: DELETE_HEALTH_CHECK,
+    type: constants.DELETE_HEALTH_CHECK,
     id: id
   };
 }
 
 export function deleteHealthCheck(id, csrf_token) {
-  return function(dispatch) {
-    request.del('/health_checks/' + id)
-    .set('x-csrf-token', csrf_token)
+  return function(dispatch, getState) {
+    const { application } = getState();
+    request.del(`/health_checks/#{id}`)
+    .set('x-csrf-token', application.csrf)
     .end(function(err, res){
       if (res.ok) {
         dispatch(removeHealthCheck(id));
@@ -55,7 +53,7 @@ export function fetchHealthChecks() {
 
 function receiveHealthCheckReports(data) {
   return {
-    type: UPDATE_REPORTS,
+    type: constants.UPDATE_REPORTS,
     summaries: data
   };
 }

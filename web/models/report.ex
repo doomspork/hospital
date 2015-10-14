@@ -2,6 +2,7 @@ defmodule Hospital.Report do
   use Hospital.Web, :model
 
   schema "reports" do
+    field :checked_at, Ecto.DateTime
     field :successful, :boolean, default: false
     field :response_time, :float
 
@@ -12,7 +13,7 @@ defmodule Hospital.Report do
   end
 
   @required_fields ~w(successful response_time medic_id health_check_id)
-  @optional_fields ~w()
+  @optional_fields ~w(checked_at)
 
   def create_changeset(model, params \\ :empty) do
     model

@@ -1,16 +1,20 @@
-import { createStore, applyMiddleware} from 'redux';
-import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import rootReducer from '../reducers';
+import thunk from 'redux-thunk';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { reduxReactRouter } from 'redux-router';
+import createHistory from 'history/lib/createBrowserHistory';
+import persistenceStore from '../persistence/store';
 
-const loggerMiddleware = createLogger();
-const createStoreWithMiddleware = applyMiddleware(thunk, createLogger())(createStore);
+const storeEnhancers = [persistenceStore];
 
+const finalCreateStore = compose(
+  ...storeEnhancers,
+  applyMiddleware(thunk),
+  reduxReactRouter({ createHistory }),
+  applyMiddleware(createLogger())
+)(createStore);
 
 export default function configureStore(initialState) {
-  const store = createStoreWithMiddleware(rootReducer, initialState);
-
-  // Middleware setup
-
-  return store;
+  return finalCreateStore(rootReducer, initialState);
 }

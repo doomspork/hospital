@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react';
+import has from 'lodash/object/has'
 import Summary from './summary';
 
 export default class HealthCheck extends Component {
   render() {
     const { healthCheckType, name, onDeleteClick, reports } = this.props;
-    const areReportsLoaded = reports.avg !== undefined;
+    const areReportsLoaded = has(reports, 'avg');
 
     return (
       <div className="health-check panel panel-default">
@@ -24,7 +25,7 @@ export default class HealthCheck extends Component {
             </div>
           </div>
         </div>
-        <div className="panel-body">
+        <div className="panel-body check-summary">
           {areReportsLoaded ? <Summary {...reports}/> : 'Loading...'}
         </div>
       </div>
