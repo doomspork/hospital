@@ -4,12 +4,7 @@ defmodule Hospital.UserController do
   alias Hospital.User
   alias Hospital.SessionController
 
-  plug :scrub_params, "user" when action in [:create, :update]
-
-  def new(conn, _params) do
-    changeset = User.create_changeset(%User{})
-    render(conn, "new.html", changeset: changeset)
-  end
+  plug :scrub_params, "user" when action in [:create]
 
   def create(conn, %{"user" => user_params}) do
     changeset = User.create_changeset(%User{}, user_params)
@@ -17,26 +12,26 @@ defmodule Hospital.UserController do
     if changeset.valid? do
       case Repo.insert(changeset) do
         {:ok, user} ->
+          conn = Guardian.Plug.sign_in(conn, user, :token, perms: %{ default: Guardian.Permissions.max })
+          token = Guardian.Plug.current_token(conn)
+
           conn
-          |> put_flash(:info, "User created successfully.")
-          |> Guardian.Plug.sign_in(user, :token, perms: %{ default: Guardian.Permissions.max })
-          |> redirect(to: page_path(conn, :index))
+          |> render("show.json", user: Map.put(user, :token, token))
         {:error, _changeset} ->
           conn
-          |> put_flash(:error, "User already exists.")
-          |> render("new.html", changeset: changeset)
+          |> render("error.json", error: "User already exists.")
       end
     else
       conn
-      |> put_flash(:error, "An error occurred creating a new account.")
-      |> render("new.html", changeset: changeset)
+      |> render("error.json", error: "An error occurred creating a new account.")
     end
   end
 
   def show(conn, _) do
     current_resource = Guardian.Plug.current_resource(conn)
+    token = Guardian.Plug.current_token(conn)
     case current_resource do
-      %User{} -> render(conn, "show.json", user: current_resource)
+      %User{} -> render(conn, "show.json", user: Map.put(current_resource, :token, token))
       nil -> SessionController.unauthenticated_api(conn)
     end
   end

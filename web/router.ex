@@ -16,29 +16,26 @@ defmodule Hospital.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    # plug Guardian.Plug.VerifyHeader, realm: "Bearer"
-    plug :fetch_session
-    plug Guardian.Plug.VerifySession
+    plug Guardian.Plug.VerifyHeader, realm: "Bearer"
     plug Guardian.Plug.LoadResource
   end
 
   scope "/", Hospital do
     pipe_through [:browser, :browser_session] # Use the default browser stack
 
-    get "/login", SessionController, :new, as: :login
+    # Account endpoints
     post "/login", SessionController, :create, as: :login
     delete "/logout", SessionController, :delete, as: :logout
-    get "/logout", SessionController, :delete, as: :logout
-
     get "/account", UserController, :show, as: :account
-    get "/signup", UserController, :new, as: :signup
     post "/signup", UserController, :create, as: :signup
 
-    get "/", PageController, :index
-    get "/dashboard", PageController, :dashboard, as: :dashboard
-    get "/settings", PageController, :settings, as: :settings
-
+    # Frontend API endpoints
     resources "/health_checks", HealthCheckController
+    get "/reports", ReportSummaryController, :index
+
+    # Catch-all defers to Redux router
+    get "/:none", PageController, :index
+    get "/", PageController, :index, as: :index
   end
 
   scope "/api", Hospital do

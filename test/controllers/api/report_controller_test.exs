@@ -3,15 +3,15 @@ defmodule Hospital.Api.ReportControllerTest do
 
   alias Hospital.Report
 
-  @valid_attrs %{successful: true, results: %{}, health_check_id: 1, medic_id: 1}
+  @valid_attrs %{successful: true, response_time: 44.0, health_check_id: 1}
   @invalid_attrs %{}
 
   setup do
     Repo.insert!(%Hospital.HealthCheck{id: 1})
-    Repo.insert!(%Hospital.Medic{id: 1})
+    %{id: id} = Repo.insert!(%Hospital.Medic{name: "Test Medic"})
 
     conn = conn()
-    claims = %{ "sub" => "user", "aud" => "aud" }
+    claims = %{ "sub" => "Medic:#{id}", "aud" => "aud" }
              |> Guardian.Claims.app_claims
              |> Guardian.Claims.permissions(%{medic: [:write]})
 

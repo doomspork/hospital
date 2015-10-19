@@ -1,5 +1,5 @@
 defmodule Hospital.Api.HealthCheckControllerTest do
-  use Hospital.ConnCase
+   use Hospital.ConnCase
 
   setup do
     conn = conn()

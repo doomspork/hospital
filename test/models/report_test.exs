@@ -3,7 +3,7 @@ defmodule Hospital.ReportTest do
 
   alias Hospital.Report
 
-  @valid_attrs %{successful: true, medic_id: 1, health_check_id: 10, results: %{}}
+  @valid_attrs %{successful: true, medic_id: 1, health_check_id: 10, response_time: 50.0}
   @invalid_attrs %{}
 
   test "create changeset with valid attributes" do

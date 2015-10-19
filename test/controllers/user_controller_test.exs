@@ -1,8 +1,6 @@
 defmodule Hospital.UserControllerTest do
   use Hospital.ConnCase
 
-  import Hospital.TestHelper
-
   alias Hospital.User
   @valid_attrs %{email: "user@example.com",
                  password: "a hard password",
@@ -34,20 +32,12 @@ defmodule Hospital.UserControllerTest do
     assert conn.status == 401
   end
 
-  test "renders sign up form", %{conn: conn} do
-    conn = get conn, signup_path(conn, :new)
-    assert html_response(conn, 200) =~ "Signup"
-  end
-
-  test "creates resource and redirects when data is valid", %{conn: conn} do
-    conn = post conn, signup_path(conn, :create), user: @valid_attrs
-    assert redirected_to(conn) == page_path(conn, :index)
-    assert Repo.get_by(User, email: @valid_attrs.email)
-  end
-
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
     conn = post conn, signup_path(conn, :create), user: @invalid_attrs
-    assert html_response(conn, 200) =~ "An error occurred creating a new account."
+
+    results = conn.resp_body
+    error = Poison.decode!(results)["error"]
+    assert error =~ "An error occurred"
   end
 
   test "does not create resource and renders errors when account exists", %{conn: conn} do
@@ -56,6 +46,9 @@ defmodule Hospital.UserControllerTest do
     |> Repo.insert!
 
     conn = post conn, signup_path(conn, :create), user: @valid_attrs
-    assert html_response(conn, 200) =~ "User already exists."
+
+    results = conn.resp_body
+    error = Poison.decode!(results)["error"]
+    assert error == "User already exists."
   end
 end

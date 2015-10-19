@@ -1,7 +1,7 @@
-let React = require('react');
+import React, { Component } from 'react';
 
-module.exports = React.createClass({
-  render: function() {
+export default class Header extends Component {
+  render() {
     return (
       <div className="header clearfix">
         <nav>
@@ -18,4 +18,4 @@ module.exports = React.createClass({
       </div>
     )
   }
-});
+};

@@ -5,28 +5,25 @@ defmodule Hospital.SessionController do
 
   plug :scrub_params, "user" when action in [:create]
 
-  def new(conn, _params) do
-    changeset = User.login_changeset(%User{})
-    render(conn, Hospital.SessionView, "new.html", changeset: changeset, conn: conn)
-  end
-
   def create(conn, params = %{}) do
     user = User.from_email(params["user"]["email"] || "")
     if user do
       changeset = User.login_changeset(user, params["user"])
       if changeset.valid? do
+        conn = Guardian.Plug.sign_in(conn, user, :token, perms: %{ default: Guardian.Permissions.max })
+        token = Guardian.Plug.current_token(conn)
+
         conn
-        |> put_flash(:info, "Logged in.")
-        |> Guardian.Plug.sign_in(user, :token, perms: %{ default: Guardian.Permissions.max })
-        |> redirect(to: page_path(conn, :index))
+        |> render(Hospital.UserView, "show.json", user: Map.put(user, :token, token))
       else
         conn
-        |> put_flash(:info, "Bad login.")
-        |> render("new.html", changeset: changeset)
+        |> put_status(401)
+        |> render(Hospital.UserView, "error.json", error: "Bad login.")
       end
     else
-      changeset = User.login_changeset(%User{}) |> Ecto.Changeset.add_error(:login, "not found")
-      render(conn, "new.html", changeset: changeset)
+      conn
+      |> put_status(401)
+      |> render(Hospital.UserView, "error.json", error: "Login not found.")
     end
   end
 
@@ -56,6 +53,6 @@ defmodule Hospital.SessionController do
     conn
     |> put_status(403)
     |> put_flash(:error, "Forbidden")
-    |> redirect(to: page_path(conn, :index))
+    #|> redirect(to: page_path(conn, :index))
   end
 end

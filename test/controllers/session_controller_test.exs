@@ -15,18 +15,23 @@ defmodule Hospital.SessionControllerTest do
     {:ok, conn: conn}
   end
 
-  test "renders login form" do
-    conn = get conn, login_path(conn, :new)
-    assert html_response(conn, 200) =~ "Login"
-  end
-
   test "creates a new session and redirects" do
     conn = post conn, login_path(conn, :create), user: %{email: @email, password: @password}
-    assert redirected_to(conn) == page_path(conn, :index)
+    assert conn.state == :sent
+    assert conn.status == 200
+
+    results = conn.resp_body
+    json = Poison.decode!(results)["data"]
+    assert json["token"]
   end
 
   test "does not create a new session when data is invalid" do
     conn = post conn, login_path(conn, :create), user: %{email: @email, password: "another password"}
-    assert html_response(conn, 200) =~ "Login"
+    assert conn.state == :sent
+    assert conn.status == 401
+
+    results = conn.resp_body
+    error = Poison.decode!(results)["error"]
+    assert error == "Bad login."
   end
 end

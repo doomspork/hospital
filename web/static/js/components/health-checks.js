@@ -1,23 +1,27 @@
-let React       = require('react');
-let HealthCheck = require('./health-check');
+import React, { Component, PropTypes } from 'react';
+import HealthCheck from './health-check';
+import keys from 'lodash/object/keys';
 
-module.exports = React.createClass({
-  propTypes: {
-    onDeleteClick: React.PropTypes.func,
-    healthChecks: React.PropTypes.array
-  },
-  render: function() {
+export default class HealthCheckList extends Component {
+  render() {
     const { healthChecks, onDeleteClick } = this.props;
+    const ids = keys(healthChecks);
     return (
       <div className="health-checks">
-        { healthChecks.map(function(instance, index) {
+        { ids.map(function(id, index) {
+          const instance = healthChecks[id];
           return (
             <HealthCheck {...instance}
               key={index}
-              onDeleteClick={() => onDeleteClick(instance.id)} />
+              onDeleteClick={() => onDeleteClick(id)} />
           )
         })}
       </div>
     )
   }
-});
+};
+
+HealthCheckList.propTypes = {
+  healthChecks: PropTypes.object.isRequired,
+  onDeleteClick: PropTypes.func.isRequired
+}

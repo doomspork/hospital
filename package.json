@@ -1,17 +1,25 @@
 {
   "repository": {},
   "dependencies": {
-    "bower": "^1.4.1",
-    "react": "^0.13.3",
-    "react-tools": "^0.13.3",
+    "chart.js": "^1.0.2",
+    "history": "^1.12.4",
+    "lodash": "^3.10.1",
+    "react": "^0.14.0",
+    "react-chartjs": "^0.6.0",
+    "react-dom": "^0.14.0",
+    "react-redux": "^2.1.2",
+    "react-router": "^1.0.0-rc3",
+    "redux": "^3.0.0",
+    "redux-logger": "^2.0.2",
+    "redux-router": "^1.0.0-beta3",
+    "redux-thunk": "^0.1.0",
     "superagent": "^1.4.0"
   },
   "cacheDirectories": [
-    "node_modules",
-    "bower_components"
+    "node_modules"
   ],
   "scripts": {
-    "postinstall": "bower install && webpack -p"
+    "postinstall": "DEBUG=true webpack -p --display-error-details"
   },
   "devDependencies": {
     "babel-core": "^5.8.25",

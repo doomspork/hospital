@@ -1,31 +1,43 @@
-let React = require('react');
+import React, { Component, PropTypes } from 'react';
+import has from 'lodash/object/has'
+import Summary from './summary';
 
-module.exports = React.createClass({
-  propTypes: {
-    name: React.PropTypes.string,
-    target: React.PropTypes.string,
-    onDeleteClick: React.PropTypes.func
-  },
-  render: function() {
+export default class HealthCheck extends Component {
+  render() {
+    const { healthCheckType, name, onDeleteClick, reports } = this.props;
+    const areReportsLoaded = has(reports, 'avg');
+
     return (
       <div className="health-check panel panel-default">
         <div className="panel-heading">
           <div className="row">
             <div className="col-md-6">
-              <h3 className="panel-title">{this.props.name}</h3>
+              <h3 className="panel-title">
+                <span className="label label-primary">{healthCheckType}</span>
+                <span className="health-check-name">{name}</span>
+              </h3>
             </div>
             <div className="col-md-6">
               <span className="pull-right">
-                <a href="{this.props.target}" target="_blank"><i class="fa fa-wrench"></i></a>
-                <i className="fa fa-close" onClick={this.props.onDeleteClick}></i>
+                <i className="fa fa-wrench"></i>
+                <i className="fa fa-close" onClick={onDeleteClick}></i>
               </span>
             </div>
           </div>
         </div>
-        <div className="panel-body">
-          Panel content
+        <div className="panel-body check-summary">
+          {areReportsLoaded ? <Summary {...reports}/> : 'Loading...'}
         </div>
       </div>
     )
   }
-});
+};
+
+HealthCheck.propTypes = {
+  healthCheckType: PropTypes.string,
+  id: PropTypes.number,
+  name: PropTypes.string,
+  onDeleteClick: PropTypes.func,
+  reports: PropTypes.object,
+  target: PropTypes.string
+}

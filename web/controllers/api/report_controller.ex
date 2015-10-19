@@ -9,7 +9,9 @@ defmodule Hospital.Api.ReportController do
   plug :scrub_params, "report" when action in [:create]
 
   def create(conn, %{"report" => report_params}) do
-    changeset = Report.create_changeset(%Report{}, report_params)
+    resource = Guardian.Plug.current_resource(conn)
+    complete_params = Map.merge(report_params, %{"checked_at" => report_params["timestamp"],"medic_id" => resource.id})
+    changeset = Report.create_changeset(%Report{}, complete_params)
 
     case Repo.insert(changeset) do
       {:ok, report} ->

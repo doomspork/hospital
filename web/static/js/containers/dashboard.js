@@ -1,46 +1,41 @@
-let React           = require('react');
-let { connect }     = require('react-redux');
-let request         = require('superagent');
-let Header          = require('../components/header');
-let Footer          = require('../components/footer');
-let HealthCheckList = require('../components/health-checks');
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 
-let { deleteHealthCheck,
-      addHealthCheck } = require('../actions/healthChecks').actionCreators;
+import Header from '../components/header';
+import Footer from '../components/footer';
+import HealthCheckList from '../components/health-checks';
+import { deleteHealthCheck,
+         fetchHealthChecks } from '../actions/health-checks'
 
-let app = React.createClass({
-  propTypes: {
-    healthChecks: React.PropTypes.array
-  },
-  componentDidMount: function() {
+class Dashboard extends Component {
+  componentDidMount() {
     const { dispatch } = this.props;
-    request
-      .get('/api/health_checks')
-      .end((err, res) => {
-        let data = JSON.parse(res.text).data;
-        data.forEach(function(item) {
-          dispatch(addHealthCheck(item));
-        });
-      });
-  },
-  render: function() {
-    const { dispatch, healthChecks } = this.props;
+    dispatch(fetchHealthChecks());
+  }
+
+  render() {
+    const { csrf, dispatch, checksById } = this.props;
     return (
       <div className='container'>
         <Header />
         <HealthCheckList
-          healthChecks={healthChecks}
-          onDeleteClick={id => dispatch(deleteHealthCheck(id))} />
-        <Footer />
+          healthChecks={checksById}
+          onDeleteClick={id => dispatch(deleteHealthCheck(id, csrf))} />
       </div>
     )
   }
-});
+};
 
-let injectedState = function(state) {
+Dashboard.propTypes = {
+  checksById: PropTypes.object,
+  csrf: PropTypes.string
+};
+
+let mapStateToProps = function(state) {
   return {
-    healthChecks: state.healthChecks
+    checksById: state.healthChecks.checksById,
+    csrf: state.csrfToken
   };
 }
 
-module.exports = connect(injectedState)(app);
+module.exports = connect(mapStateToProps)(Dashboard);
