@@ -1759,5 +1759,9 @@
     </div>
     <!-- END INNER FOOTER -->
     <!-- END FOOTER -->
+
+    <script src="http://www.keenthemes.com/preview/metronic/theme/assets/layouts/layout3/scripts/layout.min.js" type="text/javascript"></script>
+    <script src="http://www.keenthemes.com/preview/metronic/theme/assets/layouts/layout3/scripts/demo.min.js" type="text/javascript"></script>
+    <script src="http://www.keenthemes.com/preview/metronic/theme/assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
 </body>
 </html>
