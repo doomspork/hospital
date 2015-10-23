@@ -9,7 +9,6 @@ export default class App extends Component {
           {/* this will render the child routes */}
           {this.props.children}
         </div>
-
         <Footer />
       </div>
     )
