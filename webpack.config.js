@@ -13,13 +13,27 @@ module.exports = {
     new ExtractTextPlugin('css/app.css')
   ],
   module: {
-    loaders: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loaders: ['babel-loader'],
-    }, {
-      test: /\.css$/,
-      loader: ExtractTextPlugin.extract('css')
-    }]
+    loaders: [
+      {
+        test: /\.png$/,
+        loader: "url-loader?limit=100000"
+      },
+      {
+        test: /\.jpg$/,
+        loader: "file-loader"
+      },
+      {
+        test   : /\.woff|\.woff2|\.svg|.eot|\.ttf/,
+        loader : 'url?prefix=font/&limit=10000'
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loaders: ['babel-loader']
+      }, {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('css')
+      }
+    ]
   }
 };

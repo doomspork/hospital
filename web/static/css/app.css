@@ -1,7 +1,10 @@
-body {
-  background: red;
-}
-
-h1 {
-  color: blue;
-}
+@import "../vendor/metronic/global/plugins/font-awesome/css/font-awesome.min.css";
+@import "../vendor/metronic/global/plugins/simple-line-icons/simple-line-icons.min.css";
+@import "../vendor/metronic/global/plugins/bootstrap/css/bootstrap.min.css";
+@import "../vendor/metronic/global/plugins/uniform/css/uniform.default.css";
+@import "../vendor/metronic/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css";
+@import "../vendor/metronic/global/css/components.min.css";
+@import "../vendor/metronic/global/css/plugins.min.css";
+@import "../vendor/metronic/layouts/layout3/css/layout.min.css";
+@import "../vendor/metronic/layouts/layout3/css/themes/default.min.css";
+@import "../vendor/metronic/layouts/layout3/css/custom.min.css";
