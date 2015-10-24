@@ -12,7 +12,8 @@ erl_crash.dump
 _build/
 deps/
 node_modules/
-priv/static/
+priv/static/js/
+priv/static/css/
 config/prod.secret.exs
 
 ### Bower ###
