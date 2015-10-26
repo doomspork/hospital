@@ -4,23 +4,16 @@ export default class Header extends Component {
   render() {
     return (
       <div className="page-header">
-          /* BEGIN HEADER TOP */
           <div className="page-header-top">
               <div className="container">
-                  /* BEGIN LOGO */
                   <div className="page-logo">
                       <a href="index.html">
                           <img src="/images/metronic/layout3/logo-default.jpg" alt="logo" className="logo-default" />
                       </a>
                   </div>
-                  /* END LOGO */
-                  /* BEGIN RESPONSIVE MENU TOGGLER */
                   <a href="javascript:;" className="menu-toggler"></a>
-                  /* END RESPONSIVE MENU TOGGLER */
-                  /* BEGIN TOP NAVIGATION MENU */
                   <div className="top-menu">
                       <ul className="nav navbar-nav pull-right">
-                          /* BEGIN NOTIFICATION DROPDOWN */
                           <li className="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
                               <a href="javascript:;" className="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                   <i className="icon-bell"></i>
@@ -33,7 +26,7 @@ export default class Header extends Component {
                                       <a href="app_todo.html">view all</a>
                                   </li>
                                   <li>
-                                      <ul className="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+                                      <ul className="dropdown-menu-list scroller" data-handle-color="#637283">
                                           <li>
                                               <a href="javascript:;">
                                                   <span className="time">just now</span>
@@ -119,8 +112,6 @@ export default class Header extends Component {
                                   </li>
                               </ul>
                           </li>
-                          /* END NOTIFICATION DROPDOWN */
-                          /* BEGIN TODO DROPDOWN */
                           <li className="dropdown dropdown-extended dropdown-tasks dropdown-dark" id="header_task_bar">
                               <a href="javascript:;" className="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                   <i className="icon-calendar"></i>
@@ -133,7 +124,7 @@ export default class Header extends Component {
                                       <a href="app_todo_2.html">view all</a>
                                   </li>
                                   <li>
-                                      <ul className="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
+                                      <ul className="dropdown-menu-list scroller" data-handle-color="#637283">
                                           <li>
                                               <a href="javascript:;">
                                                   <span className="task">
@@ -141,7 +132,7 @@ export default class Header extends Component {
                                                       <span className="percent">30%</span>
                                                   </span>
                                                   <span className="progress">
-                                                      <span style="width: 40%;" className="progress-bar progress-bar-success" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+                                                      <span className="progress-bar progress-bar-success" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
                                                           <span className="sr-only">40% Complete</span>
                                                       </span>
                                                   </span>
@@ -154,7 +145,7 @@ export default class Header extends Component {
                                                       <span className="percent">65%</span>
                                                   </span>
                                                   <span className="progress">
-                                                      <span style="width: 65%;" className="progress-bar progress-bar-danger" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
+                                                      <span className="progress-bar progress-bar-danger" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
                                                           <span className="sr-only">65% Complete</span>
                                                       </span>
                                                   </span>
@@ -167,7 +158,7 @@ export default class Header extends Component {
                                                       <span className="percent">98%</span>
                                                   </span>
                                                   <span className="progress">
-                                                      <span style="width: 98%;" className="progress-bar progress-bar-success" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100">
+                                                      <span className="progress-bar progress-bar-success" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100">
                                                           <span className="sr-only">98% Complete</span>
                                                       </span>
                                                   </span>
@@ -180,7 +171,7 @@ export default class Header extends Component {
                                                       <span className="percent">10%</span>
                                                   </span>
                                                   <span className="progress">
-                                                      <span style="width: 10%;" className="progress-bar progress-bar-warning" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                                                      <span className="progress-bar progress-bar-warning" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
                                                           <span className="sr-only">10% Complete</span>
                                                       </span>
                                                   </span>
@@ -193,7 +184,7 @@ export default class Header extends Component {
                                                       <span className="percent">58%</span>
                                                   </span>
                                                   <span className="progress">
-                                                      <span style="width: 58%;" className="progress-bar progress-bar-info" aria-valuenow="58" aria-valuemin="0" aria-valuemax="100">
+                                                      <span className="progress-bar progress-bar-info" aria-valuenow="58" aria-valuemin="0" aria-valuemax="100">
                                                           <span className="sr-only">58% Complete</span>
                                                       </span>
                                                   </span>
@@ -206,7 +197,7 @@ export default class Header extends Component {
                                                       <span className="percent">85%</span>
                                                   </span>
                                                   <span className="progress">
-                                                      <span style="width: 85%;" className="progress-bar progress-bar-success" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+                                                      <span className="progress-bar progress-bar-success" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
                                                           <span className="sr-only">85% Complete</span>
                                                       </span>
                                                   </span>
@@ -219,7 +210,7 @@ export default class Header extends Component {
                                                       <span className="percent">38%</span>
                                                   </span>
                                                   <span className="progress progress-striped">
-                                                      <span style="width: 38%;" className="progress-bar progress-bar-important" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100">
+                                                      <span className="progress-bar progress-bar-important" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100">
                                                           <span className="sr-only">38% Complete</span>
                                                       </span>
                                                   </span>
@@ -229,11 +220,9 @@ export default class Header extends Component {
                                   </li>
                               </ul>
                           </li>
-                          /* END TODO DROPDOWN */
                           <li className="droddown dropdown-separator">
                               <span className="separator"></span>
                           </li>
-                          /* BEGIN INBOX DROPDOWN */
                           <li className="dropdown dropdown-extended dropdown-inbox dropdown-dark" id="header_inbox_bar">
                               <a href="javascript:;" className="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                   <span className="circle">3</span>
@@ -247,8 +236,6 @@ export default class Header extends Component {
                                   </li>
                               </ul>
                           </li>
-                          /* END INBOX DROPDOWN */
-                          /* BEGIN USER LOGIN DROPDOWN */
                           <li className="dropdown dropdown-user dropdown-dark">
                               <a href="javascript:;" className="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                   <img alt="" className="img-circle" src="/images/metronic/layout3/avatar9.jpg"/>
@@ -286,23 +273,16 @@ export default class Header extends Component {
                                   </li>
                               </ul>
                           </li>
-                          /* END USER LOGIN DROPDOWN */
-                          /* BEGIN QUICK SIDEBAR TOGGLER */
                           <li className="dropdown dropdown-extended quick-sidebar-toggler">
                               <span className="sr-only">Toggle Quick Sidebar</span>
                               <i className="icon-logout"></i>
                           </li>
-                          /* END QUICK SIDEBAR TOGGLER */
                       </ul>
                   </div>
-                  /* END TOP NAVIGATION MENU */
               </div>
           </div>
-          /* END HEADER TOP */
-          /* BEGIN HEADER MENU */
           <div className="page-header-menu">
               <div className="container">
-                  /* BEGIN HEADER SEARCH BOX */
                   <form className="search-form" action="page_general_search.html" method="GET">
                       <div className="input-group">
                           <input type="text" className="form-control" placeholder="Search" name="query"/>
@@ -313,10 +293,6 @@ export default class Header extends Component {
                           </span>
                       </div>
                   </form>
-                  /* END HEADER SEARCH BOX */
-                  /* BEGIN MEGA MENU */
-                  /* DOC: Apply "hor-menu-light" className after the "hor-menu" className below to have a horizontal menu with white background */
-                  /* DOC: Remove data-hover="dropdown" and data-close-others="true" attributes below to disable the dropdown opening on mouse hover */
                   <div className="hor-menu  ">
                       <ul className="nav navbar-nav">
                           <li className="menu-dropdown classNameic-menu-dropdown ">
@@ -342,7 +318,7 @@ export default class Header extends Component {
                           </li>
                           <li className="menu-dropdown mega-menu-dropdown  ">
                               <a href="javascript:;"> UI Features </a>
-                              <ul className="dropdown-menu" style="min-width: 710px">
+                              <ul className="dropdown-menu">
                                   <li>
                                       <div className="mega-menu-content">
                                           <div className="row">
@@ -472,7 +448,7 @@ export default class Header extends Component {
                           </li>
                           <li className="menu-dropdown mega-menu-dropdown  mega-menu-full">
                               <a href="javascript:;"> Components </a>
-                              <ul className="dropdown-menu" style="min-width: ">
+                              <ul className="dropdown-menu">
                                   <li>
                                       <div className="mega-menu-content">
                                           <div className="row">
@@ -893,10 +869,8 @@ export default class Header extends Component {
                           </li>
                       </ul>
                   </div>
-                  /* END MEGA MENU */
               </div>
           </div>
-          /* END HEADER MENU */
       </div>
     )
   }

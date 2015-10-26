@@ -16,6 +16,6 @@
 
 <body class="page-container-bg-solid page-boxed">
   <%= @inner %>
-  <script src="<%= static_path(@conn, "/js/bundle.js") %>"></script>
+  <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
 </body>
 </html>

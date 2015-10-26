@@ -21,7 +21,7 @@ class Dashboard extends Component {
     return (
       <div className='foobar'>
         <Header />
-        <div class="page-container">
+        <div className="page-container">
           <WidgetContainer />
           <Sidebar />
         </div>

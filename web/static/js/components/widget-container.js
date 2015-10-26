@@ -4,18 +4,12 @@ export default class WidgetContainer extends Component {
   render() {
     return (
       <div className="page-content-wrapper">
-          /* BEGIN CONTENT BODY */
-          /* BEGIN PAGE HEAD*/
           <div className="page-head">
               <div className="container">
-                  /* BEGIN PAGE TITLE */
                   <div className="page-title">
                       <h1>Blank Page </h1>
                   </div>
-                  /* END PAGE TITLE */
-                  /* BEGIN PAGE TOOLBAR */
                   <div className="page-toolbar">
-                      /* BEGIN THEME PANEL */
                       <div className="btn-group btn-theme-panel">
                           <a href="javascript:;" className="btn dropdown-toggle" data-toggle="dropdown">
                               <i className="icon-settings"></i>
@@ -122,16 +116,11 @@ export default class WidgetContainer extends Component {
                               </div>
                           </div>
                       </div>
-                      /* END THEME PANEL */
                   </div>
-                  /* END PAGE TOOLBAR */
               </div>
           </div>
-          /* END PAGE HEAD*/
-          /* BEGIN PAGE CONTENT BODY */
           <div className="page-content">
               <div className="container">
-                  /* BEGIN PAGE BREADCRUMBS */
                   <ul className="page-breadcrumb breadcrumb">
                       <li>
                           <a href="index.html">Home</a>
@@ -141,18 +130,13 @@ export default class WidgetContainer extends Component {
                           <span>Layouts</span>
                       </li>
                   </ul>
-                  /* END PAGE BREADCRUMBS */
-                  /* BEGIN PAGE CONTENT INNER */
                   <div className="page-content-inner">
                       <div className="note note-info">
                           <p> A black page template with a minimal dependency assets to use as a base for any custom page you create </p>
                       </div>
                   </div>
-                  /* END PAGE CONTENT INNER */
               </div>
           </div>
-          /* END PAGE CONTENT BODY */
-          /* END CONTENT BODY */
       </div>
     )
   }
