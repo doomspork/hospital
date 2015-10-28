@@ -52,9 +52,9 @@ defmodule Hospital.ReportSummaryController do
     {date, {hour, minute, 0}} |> :calendar.datetime_to_gregorian_seconds
   end
 
-  defp days_since(inserted_at) do
+  defp days_since(checked_at) do
     now  = :calendar.universal_time |> :calendar.datetime_to_gregorian_seconds
-    then = inserted_at |> Ecto.DateTime.to_erl |> :calendar.datetime_to_gregorian_seconds
+    then = checked_at |> Ecto.DateTime.to_erl |> :calendar.datetime_to_gregorian_seconds
     diff = now - then
 
     {days, _time} = :calendar.seconds_to_daystime(diff)
@@ -64,34 +64,36 @@ defmodule Hospital.ReportSummaryController do
 
   defp first_successes(ids) do
     query = from r in Report,
-            select: [r.health_check_id, r.inserted_at],
+            select: [r.health_check_id, r.checked_at],
             distinct: r.health_check_id,
             where: r.successful == true and r.health_check_id in ^ids,
-            group_by: [r.health_check_id, r.inserted_at],
-            order_by: [asc: r.inserted_at]
+            group_by: [r.health_check_id, r.checked_at],
+            order_by: [asc: r.checked_at]
 
     query
     |> Repo.all
     |> report_dates_to_map
   end
 
-
   defp health_check_summary(reports, padding) do
     timeseries = report_timeseries(reports)
 
     padding
     |> Map.merge(timeseries)
+    |> Map.to_list
+    |> List.keysort(0)
+    |> Enum.reverse
     |> Enum.reduce(%{avg: [], max: [], min: []}, &reduce_summaries/2)
     |> summarize
   end
 
   defp last_failures(ids) do
     query = from r in Report,
-            select: [r.health_check_id, r.inserted_at],
+            select: [r.health_check_id, r.checked_at],
             distinct: r.health_check_id,
             where: r.successful == false and r.health_check_id in ^ids,
-            group_by: [r.health_check_id, r.inserted_at],
-            order_by: [desc: r.inserted_at]
+            group_by: [r.health_check_id, r.checked_at],
+            order_by: [desc: r.checked_at]
 
     query
     |> Repo.all
@@ -109,6 +111,7 @@ defmodule Hospital.ReportSummaryController do
     since = since
             |> Ecto.DateTime.to_erl
             |> datetime_as_seconds
+
     now = datetime_as_seconds
     diff = (now - since) / 60
 
