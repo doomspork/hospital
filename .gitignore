@@ -12,7 +12,10 @@ erl_crash.dump
 _build/
 deps/
 node_modules/
-priv/static/
+priv/static/js/
+priv/static/css/
+priv/static/*.hot-update.js
+priv/static/*.hot-update.json
 config/prod.secret.exs
 
 ### Bower ###
@@ -56,3 +59,6 @@ Temporary Items
 Session.vim
 .netrwhist
 *~
+
+### Jetbrains ###
+.idea

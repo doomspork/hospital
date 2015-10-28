@@ -2,7 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import Header from '../components/header';
+import WidgetContainer from '../components/widget-container';
+import Sidebar from '../components/sidebar';
+import PreFooter from '../components/pre-footer';
 import Footer from '../components/footer';
+
 import HealthCheckList from '../components/health-checks';
 import { deleteHealthCheck,
          fetchHealthChecks } from '../actions/health-checks'
@@ -14,13 +18,15 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { csrf, dispatch, checksById } = this.props;
     return (
-      <div className='container'>
+      <div className='foobar'>
         <Header />
-        <HealthCheckList
-          healthChecks={checksById}
-          onDeleteClick={id => dispatch(deleteHealthCheck(id, csrf))} />
+        <div className="page-container">
+          <WidgetContainer />
+          <Sidebar />
+        </div>
+        <PreFooter />
+        <Footer />
       </div>
     )
   }

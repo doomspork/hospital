@@ -11,6 +11,7 @@ config :hospital, Hospital.Endpoint,
   root: Path.dirname(__DIR__),
   secret_key_base: "I41XRJZySrzMmz3uWWC2RC0fRwPGnNSQ1pWF7G7m63/15WLoCn422rMHLquR3W6l",
   render_errors: [accepts: ~w(html json)],
+  watchers: [{Path.expand("node_modules/webpack/bin/webpack.js"), ["--watch", "--colors", "--progress"]}],
   pubsub: [name: Hospital.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
