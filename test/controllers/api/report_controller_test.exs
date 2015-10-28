@@ -30,6 +30,7 @@ defmodule Hospital.Api.ReportControllerTest do
     conn = put_req_header(conn, "authorization", "Bearer #{jwt}")
     conn = post conn, report_api_path(conn, :create), report: @valid_attrs
     assert json_response(conn, 201)["data"]["id"]
-    assert Repo.get_by(Report, @valid_attrs)
+    %{checked_at: checked_at} = Repo.get_by(Report, @valid_attrs)
+    assert checked_at
   end
 end

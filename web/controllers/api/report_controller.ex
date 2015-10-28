@@ -9,9 +9,8 @@ defmodule Hospital.Api.ReportController do
   plug :scrub_params, "report" when action in [:create]
 
   def create(conn, %{"report" => report_params}) do
-    resource = Guardian.Plug.current_resource(conn)
-    complete_params = Map.merge(report_params, %{"checked_at" => report_params["timestamp"],"medic_id" => resource.id})
-    changeset = Report.create_changeset(%Report{}, complete_params)
+    report_params = complete_params(conn, report_params)
+    changeset = Report.create_changeset(%Report{}, report_params)
 
     case Repo.insert(changeset) do
       {:ok, report} ->
@@ -23,5 +22,13 @@ defmodule Hospital.Api.ReportController do
         |> put_status(:unprocessable_entity)
         |> render(Hospital.ChangesetView, "error.json", changeset: changeset)
     end
+  end
+
+  defp complete_params(conn, params) do
+    %{id: id} = Guardian.Plug.current_resource(conn)
+    timestamp = params["time"]
+                |> :calendar.gregorian_seconds_to_datetime
+
+    Map.merge(params, %{"checked_at" => timestamp, "medic_id" => id})
   end
 end

@@ -2,7 +2,7 @@ defmodule Hospital.Report do
   use Hospital.Web, :model
 
   schema "reports" do
-    field :checked_at, Ecto.DateTime
+    field :checked_at, Ecto.DateTime, default: Ecto.DateTime.utc
     field :successful, :boolean, default: false
     field :response_time, :float
 
@@ -16,6 +16,11 @@ defmodule Hospital.Report do
   @optional_fields ~w(checked_at)
 
   def create_changeset(model, params \\ :empty) do
+    # Remove if nil so a default is set
+    unless params["checked_at"] do
+      params = Map.delete(params, "checked_at")
+    end
+
     model
     |> cast(params, @required_fields, @optional_fields)
   end
